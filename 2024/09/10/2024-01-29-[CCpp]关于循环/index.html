@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>[C/Cpp]关于循环 | MongXin&#39;s Fun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="第二版 引言由于过去了大概半年左右，依次接触了C、Cpp、Java，Python，Javascript等语言，我觉得大多数语言中对循环的语法还是只有这篇章中写的内容(当然，我不认为Python等同于这些)，所以我趁着这次机会把它们整合在一起，这样方便后续查阅。 第一版 引言(上)选择，是我们生活中经常遇到的问题形式之一，我们应该如何更好地选择——如何更好地利用自身条件，周遭环境来选择适合自己的决策">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[C&#x2F;Cpp]关于循环">
+<meta property="og:url" content="https://mongxinchan.github.io/2024/09/10/2024-01-29-[CCpp]%E5%85%B3%E4%BA%8E%E5%BE%AA%E7%8E%AF/index.html">
+<meta property="og:site_name" content="MongXin&#39;s Fun">
+<meta property="og:description" content="第二版 引言由于过去了大概半年左右，依次接触了C、Cpp、Java，Python，Javascript等语言，我觉得大多数语言中对循环的语法还是只有这篇章中写的内容(当然，我不认为Python等同于这些)，所以我趁着这次机会把它们整合在一起，这样方便后续查阅。 第一版 引言(上)选择，是我们生活中经常遇到的问题形式之一，我们应该如何更好地选择——如何更好地利用自身条件，周遭环境来选择适合自己的决策">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/d6a991c7afbe8786b9216a4daa32df44.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/d2690692c12fee92095ed1aa934e04d4.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/487173c25314f03cc15fcf912363c18e.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/d6bda80904956a4b1b6c2650f1b608ed.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/5c24ad74a0a39ba02018e117edce9c29.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/9accb41b0c4195d79577ca4f097edc16.png">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/a62cc2cc606d9c9e8a1c852d8a9d5660.png">
+<meta property="article:published_time" content="2024-09-10T08:33:49.254Z">
+<meta property="article:modified_time" content="2024-09-10T08:44:33.120Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="运行逻辑">
+<meta property="article:tag" content="C&#x2F;Cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/d6a991c7afbe8786b9216a4daa32df44.png">
+  
+    <link rel="alternate" href="/atom.xml" title="MongXin's Fun" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>MongXin's Fun </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/%5Bobject%20Object%5D></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Mongxin Chan </div>
+      <div class="dot"></div>
+      <div class="subtitle">这里就是罗德岛，要跳就在这里跳 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://steamcommunity.com/id/MongXin_Chan" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/MongXinChan" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/%E8%AF%AD%E6%B3%95/">
+                语法
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                数据结构
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%AB%9E%E8%B5%9B/">
+                竞赛
+                <div class="category-count">1</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6/" rel="tag">信息学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-2024-01-29-[CCpp]关于循环" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        [C/Cpp]关于循环
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-09-10T08:33:49.254Z" itemprop="datePublished">2024-09-10</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E8%AF%AD%E6%B3%95/">语法</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            8.3k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h2 id="第二版-引言"><a href="#第二版-引言" class="headerlink" title="第二版 引言"></a>第二版 引言</h2><p>由于过去了大概半年左右，依次接触了<code>C</code>、<code>Cpp</code>、<code>Java</code>，<code>Python</code>，<code>Javascript</code>等语言，我觉得大多数语言中对循环的语法还是只有这篇章中写的内容(当然，我不认为<code>Python</code>等同于这些)，所以我趁着这次机会把它们整合在一起，这样方便后续查阅。</p>
+<h2 id="第一版-引言-上"><a href="#第一版-引言-上" class="headerlink" title="第一版 引言(上)"></a>第一版 引言(上)</h2><p>选择，是我们生活中经常遇到的问题形式之一，我们应该如何更好地选择——如何更好地利用自身条件，周遭环境来选择适合自己的决策呢？</p>
+<p>循环，是多次遍历，是选择多次遍历所有区间，还是选择多次遍历某几个量？者都是我们实际生活生产中应该关注的问题。</p>
+<p>所以本文基于这几个小问题来回答： </p>
+<ol>
+<li>什么是分支结构？</li>
+<li>分支结构的应用</li>
+</ol>
+<p> <strong>本人将结合几道问题，以及在实际编写过程中遇到的问题和反思进行撰写，尽可能做到以题引出概念。</strong></p>
+<h2 id="第一版-前言-下"><a href="#第一版-前言-下" class="headerlink" title="第一版 前言(下)"></a>第一版 前言(下)</h2><p>书接<a target="_blank" rel="noopener" href="http://t.csdnimg.cn/Ug2SG">上文</a>，c语言是结构化的程序设计语言这里的结构指的是<strong>顺序结构</strong>、<strong>选择结构</strong>、<strong>循环结构</strong>，许多实际生活中的问题是由这三者本身或者三者结合起来的，在c语言中，是利用for、while、do-while实现循环结构的。</p>
+<p>我们在上一篇文章中讲了选择结构，我们这一篇就从循环结构开始说起：</p>
+<p>我们将围绕下列几个问题出发：</p>
+<ol>
+<li>什么是循环结构？</li>
+<li>如何应用循环结构</li>
+</ol>
+<p><strong>本人将结合几道问题，以及在实际编写过程中遇到的问题和反思进行撰写，尽可能做到以题引出概念。</strong></p>
+<p><strong>由于鄙人才疏学浅，篇幅大，可能有些许错误，欢迎在评论区斧正，如果对您有帮助可以点个赞&#x2F;收藏。</strong></p>
+<p>@<a href="%E7%9B%AE%E5%BD%95">TOC</a></p>
+<hr>
+<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>c语言是结构化的程序设计语言这里的结构指的是<strong>顺序结构</strong>、<strong>选择结构</strong>、<strong>循环结构</strong>，许多实际生活中的问题是由这三者本身或者三者结合起来的，在c语言中，是利用if、switch实现分支结构的。</p>
+<p><strong>分支结构又称选择结构，其中包括if else判断语句和switch判断语句。</strong></p>
+<p>分支结构要求程序员指定一个或多个要评估或测试的条件，以及条件为真时要执行的语句（必需的）和条件为假时要执行的语句（可选的）。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/d6a991c7afbe8786b9216a4daa32df44.png" alt="img"></p>
+<p>其中为0的意思是条件表达在程序计算中为false</p>
+<p>而非0的意思是取0的补集，也就是一切不是false的皆为true，这涉及到c语言的分支结构是根据布尔型(Bool)来实现的：布尔型变量用于逻辑表达式，其运算结果为真(true)或假(false)。</p>
+<h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a><strong>if语句</strong></h3><h4 id="if"><a href="#if" class="headerlink" title="if"></a><strong>if</strong></h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp">语法:<br><span class="hljs-keyword">if</span>(逻辑表达式)&#123;<br>    语句<span class="hljs-number">1</span>;<br>    语句<span class="hljs-number">2</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<blockquote>
+<p>如果逻辑表达式成立，则运行语句1，语句2；反之，则不运行这两个语句.</p>
+</blockquote>
+<h5 id="e-g-1，输入两个数字，第一个为购买商品需要的钱财，第二个为现在拥有的钱，若满足则输出“钱足够购买”；"><a href="#e-g-1，输入两个数字，第一个为购买商品需要的钱财，第二个为现在拥有的钱，若满足则输出“钱足够购买”；" class="headerlink" title="e.g.1，输入两个数字，第一个为购买商品需要的钱财，第二个为现在拥有的钱，若满足则输出“钱足够购买”；"></a>e.g.1，输入两个数字，第一个为购买商品需要的钱财，第二个为现在拥有的钱，若满足则输出“钱足够购买”；</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br><br>    <span class="hljs-type">int</span> money=<span class="hljs-number">0</span>,price=<span class="hljs-number">0</span>;<br><br>    <span class="hljs-built_in">scanf</span>(“%d %d”,&amp;price,&amp;money);<br><br>    <span class="hljs-keyword">if</span>(price&lt;=money)<br><br>    <span class="hljs-built_in">printf</span>(“钱足够购买”);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>；<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p>可以发现我们的程序确实能满足我们的需求，但是此时如果我们再在要求上添加一个“若不满足，则输出‘需要x元’”的要求，我们会发现我们能应用的语句很少，或者说单纯用if(price&gt;money)又显得有点累赘，这时候我们引进一个else。</p>
+<p>if…else语句也是c语言中常用的判断语句，这表明我们的else与前面所对应的if判断，如果说if的逻辑表达式为false，那么则执行else和其包含的语句；</p>
+<h4 id="分支中包含多条语句"><a href="#分支中包含多条语句" class="headerlink" title="分支中包含多条语句"></a>分支中包含多条语句</h4><p>​    默认在if和else语句中默认都只控制一条语句，当我们想要包含多条语句用中括号{}围住；</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp">语法:<br><span class="hljs-keyword">if</span>(表达式<span class="hljs-number">1</span>)&#123;<br>    语句<span class="hljs-number">1</span>;<br>    语句<span class="hljs-number">2</span>;<br>    ……；<br>&#125;<br><span class="hljs-comment">//同理else</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="if…else"><a href="#if…else" class="headerlink" title="if…else"></a>if…else</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp">语法:<br><span class="hljs-keyword">if</span>(逻辑表达式)&#123;<br>    如果是<span class="hljs-literal">true</span>执行;&#125;<br><span class="hljs-keyword">else</span> &#123;<br>    如果是<span class="hljs-literal">false</span>执行;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​       也就是我们应用</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">if</span>(price&lt;=money)<br>    <span class="hljs-built_in">printf</span>(“钱足够购买”)<br><span class="hljs-keyword">else</span>&#123;<br>    <span class="hljs-built_in">printf</span>(“需要%d元”,price-money);&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h5 id="e-g-2，为使用输入1-7反馈是否为“休息日”"><a href="#e-g-2，为使用输入1-7反馈是否为“休息日”" class="headerlink" title="e.g.2，为使用输入1~7反馈是否为“休息日”"></a>e.g.2，为使用输入1~7反馈是否为“休息日”</h5><p>我们如果采用if语句，要考虑到单纯的if实际上更容易被混淆，所以我们这个时候引出else-if的应用:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;n);<br>    <span class="hljs-keyword">if</span>(x==<span class="hljs-number">1</span>)<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;今天是工作日&quot;</span>);<br>    <span class="hljs-keyword">else</span>-<span class="hljs-keyword">if</span>(x==<span class="hljs-number">2</span>)<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;今天是工作日&quot;</span>);<br>    <span class="hljs-keyword">else</span>-<span class="hljs-keyword">if</span>(x==<span class="hljs-number">3</span>||x==<span class="hljs-number">4</span>||x==<span class="hljs-number">5</span>)<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;今天是工作日&quot;</span>);<br>    <span class="hljs-keyword">else</span><span class="hljs-comment">//意思是除了x=1~5外的数字;</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;今天是休息日&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>​    可以看到else-if相当于与if,else一起构成一个全集,这是为了满足程序的可执行性而考虑的：</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/d2690692c12fee92095ed1aa934e04d4.png" alt="img"></p>
+<p>故有:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp">语法：<br><span class="hljs-keyword">if</span>(表达式<span class="hljs-number">1</span>)<br>    语句<span class="hljs-number">1</span>;<br>    <span class="hljs-comment">//如果表达式1为true，则执行语句1；</span><br><span class="hljs-keyword">else</span>-<span class="hljs-keyword">if</span>(表达式<span class="hljs-number">2</span>)<br>    语句<span class="hljs-number">2</span>;<br>    <span class="hljs-comment">//如果表达式1为false，且条件2为true，则执行语句2；</span><br><span class="hljs-keyword">else</span>-<span class="hljs-keyword">if</span>(表达式<span class="hljs-number">3</span>)<br>    语句<span class="hljs-number">3</span>;<br>    <span class="hljs-comment">//如果表达式2为false，且条件3为true，则执行语句3；</span><br><span class="hljs-keyword">else</span><span class="hljs-comment">//意思是除了表达式1~3外的形式，执行语句4；</span><br>    语句<span class="hljs-number">4</span>;<br></code></pre></td></tr></table></figure>
+
+<p>​	上文中我们实际上还应用到关系操作符，我在<a target="_blank" rel="noopener" href="https://blog.csdn.net/Mongxin_Chan/article/details/134091146">之前的文章</a>曾经写过:</p>
+<blockquote>
+<p>！先于“||”和“&amp;&amp;”，逻辑非（“！”）是逻辑运算符中优先级最高的；算术运算符，赋值运算符优先级均高于逻辑运算符;</p>
+</blockquote>
+<p>​    在一些程序中,我们可以借用||来达成代码的简洁，代码的简明性是我们在撰写程序必须要坚持的，这可以让程序看起来更容易阅读，在必要的时候使用关系操作符，可以减少程序步骤，但是如果应用不当会让人阅读产生疲倦(下面是我自己的错误例子)    </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp">(x % <span class="hljs-number">4</span> == <span class="hljs-number">0</span> &amp;&amp; x % <span class="hljs-number">100</span> != <span class="hljs-number">0</span>) || x % <span class="hljs-number">400</span> == <span class="hljs-number">0</span><span class="hljs-comment">//这是正确的用法</span><br>(x % <span class="hljs-number">4</span> == <span class="hljs-number">0</span> &amp;&amp; x % <span class="hljs-number">100</span> != <span class="hljs-number">0</span>) || (x % <span class="hljs-number">400</span> == <span class="hljs-number">0</span>)<span class="hljs-comment">//这是错误的用法</span><br></code></pre></td></tr></table></figure>
+
+<p>但是这种使用方法还不如嵌套if来得方便：</p>
+<h4 id="嵌套if"><a href="#嵌套if" class="headerlink" title="嵌套if"></a>嵌套if</h4><p> 我们可以在if语句中嵌套多个if语句：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp">语法：<br><span class="hljs-keyword">if</span>(表达式<span class="hljs-number">1</span>)&#123;<br>    <span class="hljs-keyword">if</span>(表达式<span class="hljs-number">2</span>)&#123;<br>        <span class="hljs-keyword">if</span>(表达式<span class="hljs-number">3</span>)&#123;<br>            …………<br>        &#125;<br>    <span class="hljs-keyword">else</span>&#123;<span class="hljs-comment">//表达式2若为false，则运行</span><br>        语句;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>可以看出，嵌套多个if语句的同时也可以使用if…else结构；</p>
+<h5 id="e-g-3，判断是否是闰年-方法一为if嵌套，方法2为关系操作符运算"><a href="#e-g-3，判断是否是闰年-方法一为if嵌套，方法2为关系操作符运算" class="headerlink" title="e.g.3，判断是否是闰年?(方法一为if嵌套，方法2为关系操作符运算)"></a>e.g.3，判断是否是闰年?(方法一为if嵌套，方法2为关系操作符运算)</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/*利用if语句嵌套</span><br><span class="hljs-comment">1、可以被4整除</span><br><span class="hljs-comment">2、被400整除/不被100整除；*/</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> n=<span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;n);<br>    <span class="hljs-keyword">if</span>(n%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-keyword">if</span>(n%<span class="hljs-number">100</span>==<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">if</span>(n%<span class="hljs-number">400</span>==<span class="hljs-number">0</span>)<br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d是闰年&quot;</span>,n);<br>            <span class="hljs-keyword">else</span><br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d不是闰年&quot;</span>,n);&#125;<br>        <span class="hljs-keyword">else</span><br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d是闰年&quot;</span>,n);<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d不是闰年&quot;</span>,n);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">/*如果仅考虑利用关系操作符，则满足以下条件:</span><br><span class="hljs-comment">1、可以被400整除</span><br><span class="hljs-comment">2、可以被4整除且不被100整除，除非第一个条件成立*/</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> n;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;n);<br>        <span class="hljs-keyword">if</span>(n%<span class="hljs-number">400</span>==<span class="hljs-number">0</span>||(n%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>&amp;&amp;n%<span class="hljs-number">100</span>!=<span class="hljs-number">0</span>))<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d是闰年&quot;</span>,n);<br>        <span class="hljs-keyword">else</span><br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d不是闰年&quot;</span>,n);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h4 id="悬空else"><a href="#悬空else" class="headerlink" title="悬空else"></a>悬空else</h4><p>​    如果有多个if和else，可以通过就近原则：else总是与最近的if匹配；</p>
+<hr>
+<p>​    如果我们再考虑<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/problem/P5716">一道题</a>，如果像这一道题一样复杂，我们应该如何处理？这时候我们引入switch，以及关系操作符(后文给出个人AC该题的解)</p>
+<h3 id="switch语句"><a href="#switch语句" class="headerlink" title="switch语句"></a><strong>switch语句</strong></h3><blockquote>
+<p>​    除了if语句外，c语言还提供了switch语句来实行分支结构。</p>
+<p>​    switch语句是一种特殊形式的if…else结构，用于判断条件有多个结果的情况。它把多重的else if改成更易用、可读性更好的形式</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">switch</span>(相关的量)&#123;<br><br>        <span class="hljs-keyword">case</span> 整型变量<span class="hljs-number">1</span>:语句<span class="hljs-number">1</span>;<br><br>        <span class="hljs-keyword">case</span> 整型变量<span class="hljs-number">2</span>:语句<span class="hljs-number">2</span>;<br><br>        <span class="hljs-keyword">default</span>:语句<span class="hljs-number">3</span>;<br>        <span class="hljs-comment">//其作用就像if…else语句中的else</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动"></p>
+<p> <strong>注意事项：</strong></p>
+<ul>
+<li>switch后的相关的量必须是整形表达式</li>
+<li>case后要跟一个空格</li>
+<li>case后面的变量要是整型常量表达式</li>
+<li>case子句和default子句没有顺序要求，但是我们在编写时候把defalut子句放在最后，以防遗漏或者是重复书写；</li>
+</ul>
+<h4 id="break"><a href="#break" class="headerlink" title="break"></a>break</h4><p>​    不妨思考，如果刚刚的例子2改写成switch应该如何书写？</p>
+<p>​    不难发现，如果我们单纯用printf语句填满case后的语句，会重复输出多次文字，这并非我们想要的，我们这时候引入break语句：</p>
+<p>​    由于switch语句也是分支结构的一种，只有在switch语句中使用break才能在跳出该switch语句，如果一个case语句后边没有break语句，代码会继续往下执行，有可能执行其他case语句中的代码，直到遇到break语句或者switch语句结束。</p>
+<p>​    但是并不是说明break可以亵玩，要根据程序设计的需求来应用，下列为问题2的程序代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> n=<span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;n);<br>    <span class="hljs-keyword">switch</span>(x)&#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;工作日&quot;</span>);<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;休息日&quot;</span>);<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">default</span>:<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;输入错误&quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="LuoguAC代码"><a href="#LuoguAC代码" class="headerlink" title="LuoguAC代码"></a>LuoguAC代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-comment">//输入年份，月份--&gt;利用结构体实现调用</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">judgement</span><span class="hljs-params">(<span class="hljs-type">int</span> y)</span></span>;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	<span class="hljs-type">int</span> y,m;<br>	<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d %d&quot;</span>,&amp;y,&amp;m);<br>	<span class="hljs-type">int</span> i=<span class="hljs-built_in">judgement</span>(y);<br>	<span class="hljs-keyword">switch</span>(i)&#123;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>			<span class="hljs-keyword">if</span>(m==<span class="hljs-number">2</span>)<span class="hljs-comment">//1,3,5,7,8,10,12</span><br>				<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;29&quot;</span>);<br>			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(m==<span class="hljs-number">6</span>||m==<span class="hljs-number">9</span>||m==<span class="hljs-number">11</span>)<br>				<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;30&quot;</span>);<br>			<span class="hljs-keyword">else</span>&#123;<br>				<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;31&quot;</span>);<br>			&#125;<br>			<span class="hljs-keyword">break</span>;<br>		<span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:<br>			<span class="hljs-keyword">if</span>(m==<span class="hljs-number">2</span>)<span class="hljs-comment">//1,3,5,7,8,10,12</span><br>				<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;28&quot;</span>);<br>			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(m==<span class="hljs-number">6</span>||m==<span class="hljs-number">9</span>||m==<span class="hljs-number">11</span>) <br>				<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;30&quot;</span>);<br>			<span class="hljs-keyword">else</span>&#123;<br>				<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;31&quot;</span>);<br>			&#125;<br>			<span class="hljs-keyword">break</span>;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">judgement</span><span class="hljs-params">(<span class="hljs-type">int</span> y)</span></span>&#123;<br>	<span class="hljs-keyword">if</span>(y%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>)&#123;<br>		<span class="hljs-keyword">if</span>(y%<span class="hljs-number">100</span>!=<span class="hljs-number">0</span>)<br>			<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(y%<span class="hljs-number">100</span>==<span class="hljs-number">0</span>&amp;&amp;y%<span class="hljs-number">400</span>==<span class="hljs-number">0</span>)<br>			<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>		<span class="hljs-keyword">else</span><br>			<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>	&#125;<br>	<span class="hljs-keyword">else</span><br>		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a><strong>while循环</strong></h2><p>c语言提供了3中循环语句，while就是其中一种；</p>
+<p>while与上文讲述到的if语句有相似性；</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp">其语法：<br><br><span class="hljs-keyword">if</span>(表达式)&#123;<br><br>语句;&#125;<br><br><span class="hljs-comment">//if是只要表达式为true，则执行语句</span><br><br><span class="hljs-keyword">while</span>(表达式)&#123;<br><br>语句;&#125;<br><span class="hljs-comment">//while与if相同，若表达式为true，则执行语句，但是与之不同的是，</span><br><span class="hljs-comment">//while会一直执行直到表达式为false，如果一直为真值那便进入死循环</span><br></code></pre></td></tr></table></figure>
+
+<p>下面就是一个例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">while</span>(<span class="hljs-number">1</span>)&#123;<span class="hljs-built_in">printf</span>(“Ice-cream实际上就是I scream.\n”);&#125;<br></code></pre></td></tr></table></figure>
+
+<p>那么不难得出是“Ice-cream实际上就是I scream”满屏幕循环，<strong>在编程中我们尽可能避免死循环，减少维护困难</strong>(但是看需求,因为程序设计是由需求诞生的)</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/487173c25314f03cc15fcf912363c18e.png" alt="img"></p>
+<h3 id="while循环的执行流程"><a href="#while循环的执行流程" class="headerlink" title="while循环的执行流程"></a><strong>while循环的执行流程</strong></h3><p><img src="https://i-blog.csdnimg.cn/blog_migrate/d6bda80904956a4b1b6c2650f1b608ed.png" alt="img"></p>
+<p>​    先进行判断表达式，如若表达式的数值为0(false)，循环结束；表达式的值不为0(true)，则执行循环语句，语句执行完后再继续判断，是否进行下一次判断。</p>
+<h5 id="e-g-4，我们输入一个正的整数，逆序打印这个整数的每一位"><a href="#e-g-4，我们输入一个正的整数，逆序打印这个整数的每一位" class="headerlink" title="e.g.4，我们输入一个正的整数，逆序打印这个整数的每一位"></a>e.g.4，我们输入一个正的整数，逆序打印这个整数的每一位</h5><p>先分析：</p>
+<ol>
+<li>想要得到n的最低位，可以使用n%10的运算；</li>
+<li>想要去掉n的最低位，找出倒数第二位数，利用n&#x2F;&#x3D;10就可以获得；</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> n=<span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">scanf</span>(“%d”,&amp;n);<br>    <span class="hljs-keyword">while</span>(n)&#123;<br>        <span class="hljs-built_in">printf</span>(“%d”，n%<span class="hljs-number">10</span>) ;<br>        n/=<span class="hljs-number">10</span>;<br>    &#125;<br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a><strong>for循环</strong></h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp">语法:<br><br><span class="hljs-keyword">for</span>(表达式<span class="hljs-number">1</span>;表达式<span class="hljs-number">2</span>;表达式<span class="hljs-number">3</span>)&#123;<br>    语句;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>表达式1用于循环变量的初始化</p>
+<p>表达式2用于循环结束条件的判断</p>
+<p>表达式3用于调整</p>
+<h3 id="for循环的执行流程"><a href="#for循环的执行流程" class="headerlink" title="for循环的执行流程"></a><strong>for循环的执行流程</strong></h3><p><img src="https://i-blog.csdnimg.cn/blog_migrate/5c24ad74a0a39ba02018e117edce9c29.png" alt="img"></p>
+<blockquote>
+<p>首先，执行表达式1初始化循环变量，接下来就是执行表达式2的判断部分，表达式2的结果如果为0，则循环结束；表达式2的结果如果非0，则执行循环语句，循环语句执行完后，再去执行表达式3，调整循环变量，然后再进入表达式2，其判断结果是否为0，决定循环是否循环。</p>
+</blockquote>
+<p>换句话说：</p>
+<p>1、初始化部分只被执行1次</p>
+<p>2、进入表达式2，判断，是否为0(false)，为0则结束</p>
+<p>3、否则执行完语句后进行调整，进入2</p>
+<p>注意事项：</p>
+<ol>
+<li>表达式1，2必须要有</li>
+<li>表达式3不一定要有，可以在语句中进行调整</li>
+</ol>
+<p>e.g.4请打印1000~2000年的闰年；</p>
+<p>利用for循环：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> n=<span class="hljs-number">1000</span>;<br>    <span class="hljs-keyword">for</span>(n;n&lt;=<span class="hljs-number">2000</span>;n+=<span class="hljs-number">4</span>)&#123;<br>        <span class="hljs-keyword">if</span>(n%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>)&#123;<br>            <span class="hljs-keyword">if</span>(n%<span class="hljs-number">100</span>==<span class="hljs-number">0</span>)&#123;<br>               <span class="hljs-keyword">if</span>(n%<span class="hljs-number">400</span>==<span class="hljs-number">0</span>)<br>                    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,n);&#125;<br>            <span class="hljs-keyword">else</span><br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,n);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>利用while循环：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> n=<span class="hljs-number">1000</span>;<br>    <span class="hljs-keyword">while</span>(n&lt;=<span class="hljs-number">2000</span>)&#123;<br>           <span class="hljs-keyword">if</span>(n%<span class="hljs-number">4</span>==<span class="hljs-number">0</span>)&#123;<br>                <span class="hljs-keyword">if</span>(n%<span class="hljs-number">100</span>==<span class="hljs-number">0</span>)&#123;<br>                    <span class="hljs-keyword">if</span>(n%<span class="hljs-number">400</span>==<span class="hljs-number">0</span>)<br>                        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,n);<br>                &#125;<br>        <span class="hljs-keyword">else</span><br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>,n);<br>       &#125;<br>              n+=<span class="hljs-number">4</span>;<br>    &#125;<br>       <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="for循环和while循环的对比"><a href="#for循环和while循环的对比" class="headerlink" title="for循环和while循环的对比"></a><strong>for循环和while循环的对比</strong></h3><p><img src="https://i-blog.csdnimg.cn/blog_migrate/9accb41b0c4195d79577ca4f097edc16.png" alt="img"></p>
+<p>可以看到，for循环和while循环都有<strong>初始化、判断，调整</strong>三部分；而for循环<strong>更加集中</strong>，在后期维护中更容易，所以形式上for循环更优；</p>
+<h2 id="do-while循环"><a href="#do-while循环" class="headerlink" title="do-while循环"></a><strong>do-while循环</strong></h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">do</span>-<span class="hljs-keyword">while</span>语法：<br><span class="hljs-keyword">do</span><br>    语句;<br><span class="hljs-keyword">while</span>(表达式);<span class="hljs-comment">//注意分号</span><br></code></pre></td></tr></table></figure>
+
+<p>while和for这两种循环都是先判断，而do-while循环则是直接进入循环体，在执行while后的判断表达式，表达式非0，就会进入下一次，表达式为0，则不继续循环。</p>
+<p>do-while语句中，循环体是至少执行一次，这是与while循环和for循环不同的点。</p>
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/a62cc2cc606d9c9e8a1c852d8a9d5660.png" alt="img"><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt="点击并拖拽以移动">编辑</p>
+<h2 id="continue和break语句"><a href="#continue和break语句" class="headerlink" title="continue和break语句"></a><strong>continue和break语句</strong></h2><p>在循环执行的过程中，如果某些状况发生的时候，需要提前终止循环，这是非常常见的现象。c语言中提供了break和continue两个关键字，以供应用到循环中</p>
+<p>break的作用是用于永久的终止循环，只要break被执行，直接就会跳出循环，继续往后执行。</p>
+<p>continue的作用是跳过本次循环continue后边的代码，在for循环和while循环中有所差异；</p>
+<h3 id="while循环中的break，continue"><a href="#while循环中的break，continue" class="headerlink" title="while循环中的break，continue"></a><strong>while循环中的break，continue</strong></h3><p>break：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span>(i&lt;=<span class="hljs-number">10</span>) &#123;<br>        <span class="hljs-keyword">if</span>(i == <span class="hljs-number">5</span>) <span class="hljs-keyword">break</span>;<span class="hljs-comment">//当i等于5后，就执⾏break，循环就终⽌了</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>, i);<br>        i = i<span class="hljs-number">+1</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>continue：</p>
+<p>continue 是继续的意思，在循环中的作⽤就是跳过本次循环中 continue 后边的代码，继续进⾏ 下⼀次循环的判断。</p>
+<p>上⾯的代码，如果把 break 换成 continue 会是什么结果呢？</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span>(i&lt;=<span class="hljs-number">10</span>) &#123;<br>        <span class="hljs-keyword">if</span>(i == <span class="hljs-number">5</span>) <span class="hljs-keyword">continue</span>; <span class="hljs-comment">//当i等于5后，就执⾏continue，直接跳过continue的代码，去循环的判断的地⽅</span><br>        <span class="hljs-comment">//因为这⾥跳过了i = i+1，所以i⼀直为5，程序陷⼊和死循环</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>, i);<br>        i = i<span class="hljs-number">+1</span>;<br>        &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>到这⾥我们就能分析出来， continue 可以帮助我们跳过某⼀次循环 continue 后边的代码，直接 到循环的判断部分，进⾏下⼀次循环的判断，如果循环的调整是在 continue 后边的话，可能会造成 死循环。</p>
+<h3 id="for循环中的break和continue"><a href="#for循环中的break和continue" class="headerlink" title="for循环中的break和continue"></a><strong>for循环中的break和continue</strong></h3><p>break 的作⽤是永久的终⽌循环，未来我们在某个条件发⽣的时候，不想再继续循环的时候，就可以 使⽤ break来完成，与上文while的break一样。</p>
+<p>continue：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;<br><span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>; i&lt;=<span class="hljs-number">10</span>; i++)<br>        <span class="hljs-keyword">if</span>(i == <span class="hljs-number">5</span>) <span class="hljs-keyword">continue</span>;<br>        <span class="hljs-comment">//这⾥continue跳过了后边的打印，来到了i++的调整部分</span><br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d &quot;</span>, i);<br>    &#125;<br><span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="do-while循环中的break和continue"><a href="#do-while循环中的break和continue" class="headerlink" title="do-while循环中的break和continue"></a><strong>do-while循环中的break和continue</strong></h3><p>do-while 语句中的 break 和 continue 的作⽤和 while 循环中⼏乎⼀模⼀样，在此不再赘述。</p>
+<h2 id="循环的嵌套"><a href="#循环的嵌套" class="headerlink" title="循环的嵌套"></a><strong>循环的嵌套</strong></h2><p>与分支结构嵌套一样，循环结构也可以实现嵌套，比如实现九九乘法表</p>
+<h5 id="e-g-5，实现九九乘法表"><a href="#e-g-5，实现九九乘法表" class="headerlink" title="e.g.5，实现九九乘法表"></a>e.g.5，实现九九乘法表</h5><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-type">int</span> i,j;<br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">1</span>;i&lt;=<span class="hljs-number">9</span>;i++)&#123;<br>        <span class="hljs-keyword">for</span>(j=<span class="hljs-number">1</span>;j&lt;=i;j++)&#123;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d*%d=%2d &quot;</span>,i,j,i*j);<br>            &#125;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\n&quot;</span>);<br>        &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/09/10/hello-world/"
+      title="Hello Blog"
+     >
+
+    <p class="title-text">
+      
+        Hello Blog
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Mongxin Chan<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>

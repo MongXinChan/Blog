@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>数据结构与算法——第一讲：数据结构与算法的简单定义 | MongXin&#39;s Fun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="前言好久没写博客了，想了想跟最近一直在忙着Relaxing有关生活中的一些其他事情，又想了想博客主要是记录自己的学习成果，也就没有太过上心，逐渐适应了开学后的作息，所以抽空写会博客~  @[TOC]  什么是数据结构 数据结构是⼀⻔研究⾮数值计算的程序设计问题中的操作对象，以及他们之间的关系和操作等相关问题的学科 ⼈们越来越重视“数据结构”，认为程序设计的实质上对确定的问题选择⼀种好的结构，加上设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法——第一讲：数据结构与算法的简单定义">
+<meta property="og:url" content="https://mongxinchan.github.io/2024/09/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%80%E8%AE%B2%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9A%E4%B9%89/index.html">
+<meta property="og:site_name" content="MongXin&#39;s Fun">
+<meta property="og:description" content="前言好久没写博客了，想了想跟最近一直在忙着Relaxing有关生活中的一些其他事情，又想了想博客主要是记录自己的学习成果，也就没有太过上心，逐渐适应了开学后的作息，所以抽空写会博客~  @[TOC]  什么是数据结构 数据结构是⼀⻔研究⾮数值计算的程序设计问题中的操作对象，以及他们之间的关系和操作等相关问题的学科 ⼈们越来越重视“数据结构”，认为程序设计的实质上对确定的问题选择⼀种好的结构，加上设">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-09-10T05:11:16.897Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="MongXin's Fun" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>MongXin's Fun </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/%5Bobject%20Object%5D></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Mongxin Chan </div>
+      <div class="dot"></div>
+      <div class="subtitle">这里就是罗德岛，要跳就在这里跳 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://steamcommunity.com/id/MongXin_Chan" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/MongXinChan" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/%E8%AF%AD%E6%B3%95/">
+                语法
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                数据结构
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%AB%9E%E8%B5%9B/">
+                竞赛
+                <div class="category-count">1</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6/" rel="tag">信息学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-数据结构与算法——第一讲：数据结构与算法的简单定义" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        数据结构与算法——第一讲：数据结构与算法的简单定义
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-09-02T16:00:00.000Z" itemprop="datePublished">2024-09-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            5.2k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>好久没写博客了，想了想跟最近一直在忙着<del>Relaxing有关</del>生活中的一些其他事情，又想了想博客主要是记录自己的学习成果，也就没有太过上心，逐渐适应了开学后的作息，所以抽空写会博客~</p>
+<p> @[TOC] </p>
+<h2 id="什么是数据结构"><a href="#什么是数据结构" class="headerlink" title="什么是数据结构"></a>什么是数据结构</h2><p> 数据结构是⼀⻔研究⾮数值计算的程序设计问题中的操作对象，以及他们之间的关系和操作等相关问题的学科 ⼈们越来越重视“数据结构”，认为程序设计的实质上对确定的问题选择⼀种好的结构，加上设计⼀种好的算法。</p>
+<p> 数据：是描述客观事物的符号，是计算机中可以操作的对象，是能够被计算机识别，并输⼊给计算机处理的符号集合。数据不仅仅包括整形、实型等数据类型，还包括字 符及声⾳、图像、视频等⾮数值类型。 </p>
+<p>这⾥说的数据，其实就是符号，⽽且这些符号必须具备两个前提 </p>
+<ul>
+<li><p>可以输⼊到计算机中。</p>
+</li>
+<li><p>能够被计算机程序处理。</p>
+</li>
+</ul>
+<p>​	对于整型、实型等数值类型，可以进⾏数值计算 </p>
+<p>​	对于字符数据类型，就需要进⾏⾮数值的处理——这⾥常常采⽤ASCII码。⽽声⾳、图像、视频等其实是可以通过编码的⼿段变成字符数据来处理。 </p>
+<p><strong>数据元素</strong>：是组成数据的、有⼀定意义的基本单位，在计算机中通常作为整体处理，也被称为记录。 数据项：⼀个数据元素可以由若⼲个数据项组成。 </p>
+<p>​	数据项是数据不可分割的最⼩单位。⽐如⼈有五官，四肢——⼈有姓名，年龄，性别，家庭地址，联系电话，邮政编码 </p>
+<p><strong>数据对象</strong>：是性质相同的数据元素的集合，是数据的⼦集。 </p>
+<p><strong>数据结构</strong>：结构，从简⽽⾔说就是关系，⽐如分⼦结构，就是说组成分⼦的原⼦之间的排列⽅式。严格点说，结构是指各个组成部份相互搭配和排列的⽅式。在现实⽣活 中，不同数据元素之间不是独⽴的，⽽是存在特定的关系，我们将这些关系称为结构。 </p>
+<p><strong>数据结构</strong>：是相互之间存在⼀种或多种特定关系的数据元素的集合</p>
+<p>​	<em><strong><u>在计算机中，数据并⾮孤⽴，杂乱⽆序的，⽽是具有内在联系的数据集合。数据元素之间存在的⼀种或多种特定关系，也就是数据的组织形式。</u></strong></em> </p>
+<p><strong>逻辑结构</strong>：是指数据对象中数据元素之间的相互关系。</p>
+<ol>
+<li><p>集合结构<br>集合结构中的元素除了同属于⼀个集合外，他们之间没有其他关系。各个数据元素是“平等”的.</p>
+</li>
+<li><p>线性结构<br>线性结构中的数据之间是⼀对⼀对的关系。 </p>
+</li>
+<li><p>树形结构<br>数据结构元素之间存在⼀种⼀对多的层次关系 </p>
+</li>
+<li><p>图形结构<br>数据元素是多对多的关系 </p>
+<ul>
+<li><p>将每⼀个数据元素看作⼀个结点，⽤圆圈来表示。 </p>
+</li>
+<li><p>元素之间的逻辑关系⽤结点之间的连线表示，如果这个关系是有⽅向的，那么⽤带箭头的连线表示。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p><strong>物理结构</strong> </p>
+<ol>
+<li><p>顺序存储结构 </p>
+<p>把数据元素存放在地址连续的存储单元⾥，其数据间的逻辑关系和物理关系是⼀致的</p>
+</li>
+<li><p>链式存储结构</p>
+<p>如早茶，医院叫号——排队系统，在等待的时候，你爱在哪就在哪，你关注的是前⼀个号有没有被叫到，叫到了，下⼀个就轮到你了。 把数据元素存放到任意的存储单元⾥，这组存储单元可以是连续的，也可以是不连续的。 数据元素的存储关系并不能反映其欧机关系，因此需要⽤⼀个指针存放数据元素的地址，这样通过地址就可以找到相关联数据元素的位置。</p>
+</li>
+</ol>
+<p><strong>逻辑结构是⾯向问题的，⽽物理结构就是⾯向计算机的，其基本的⽬标就是将数据及其逻辑关系存储到计算机的内存中</strong> </p>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><p>​	是指⼀组性质相同的值的集合及定义在此集合上的⼀些操作的总称。<br>​	为了满⾜各种需求，⽐如房⼦有公寓，有别墅，别野，胶囊公寓等等；由于不同的需求产⽣不同的产品需求，因此，要对数据进⾏分类，分出来多种数据类型。<br>​	C语⾔中按照取值的不同，可分为原⼦类型，结构类型。</p>
+<ul>
+<li>⽐如int a，b；不仅意味着为int类型变量，也同时不能超出int的取值范围。⽆论什么计算机、计算机语⾔，⼤都会⾯临着如整数运算、实数运算、字符运算 等操作，我们都可以把它们都抽象出来。 </li>
+<li><strong><u>抽象是指取出事物具有普遍性的本质。</strong></u>它是抽象出问题的特征⽽忽略⾮本质的细节，舍对具体事物的⼀个概括。</li>
+</ul>
+<h3 id="抽象数据类型（Abstract-Data-Type，ADT）"><a href="#抽象数据类型（Abstract-Data-Type，ADT）" class="headerlink" title="抽象数据类型（Abstract Data Type，ADT）"></a>抽象数据类型（Abstract Data Type，ADT）</h3><p>​	⼀个数学模型及其定义在该模型上的⼀组操作。抽象数据类型的定义仅仅取决于它的⼀组逻辑特性，⽽与其在计算机内部如何表现和实现⽆关。</p>
+<p>​	抽象数据类型不仅仅只指那些已经定义并实现的数据类型，还可以是计算机编程者在设计软件程序时⾃⼰定义的数据类型，⽐如我们编写关于计算机绘图或 者地图类的软件系统，都会⽤到坐标。也就是说，总有成对的x和y，在3D系统中还有z出现，既然这三个整型数字始终是在⼀起出现，我们就定义⼀个叫point的抽象数据类型，他有xyz三个整形变量，这样我们很⽅便地操作⼀个point数据变量，就能知道这⼀点的坐标了。<br>​	<strong>抽象数据类型体现了程序设计中问题分解、抽象和信息隐藏的特性。</strong><br>​	抽象数据类型把实际⽣活中的问题分解为多个规模⼩且容易处理的问题，然后建⽴⼀个计算机能处理的数据模型，并把每个功能模块的实现细节作为⼀个独⽴的单元，从⽽使具体实现过程隐藏起来。<br>​	换而言之，C++所提及到的抽象性就是抽象数据类型的一种解决方式，通过对对象的数据进行模拟而来</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><p>​	算法是解决特定问题求解步骤的描述，在计算机中表现为指令的有限序列，并且每条指令表示⼀个或多个操作。 <strong>只谈数据结构，当然是可以的，但是就跟《梁⼭伯与祝英台》不谈“祝英台”，《罗密欧与朱丽叶》不谈“罗密欧”般，数据结构和算法也是这个内涵。</strong> </p>
+<h3 id="两种算法的⽐较"><a href="#两种算法的⽐较" class="headerlink" title="两种算法的⽐较"></a>两种算法的⽐较</h3><p>​	众所周知，1+2+3+…+100结果的程序我们可以写作</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)&#123;sum+=i;&#125; <br></code></pre></td></tr></table></figure>
+
+<p>​	也可以写作</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">float</span> sum=(n<span class="hljs-number">+1</span>)*n/<span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+
+<p>​	⽐较两种算法在n&#x3D;10000谁更快，明显是第⼆种，我们发现，<strong>如果我们通过数学知识可以将一些复杂的程序问题转化为更为容易的方法</strong>。显然，我们需要有相应的数学基础！<del>在此继续呼吁对初等数论的学习</del> </p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>​	算法是解决特定问题求解步骤的描述，在计算机中表现为指令的有限序列，并且每条指令表示⼀个或多个操作。不得不提到，即使是等差数列总的求和公式也是一种算法，就算你只写<code>printf()</code>也是一种算法，<strong>重要的是解决问题，而不是及其步骤。</strong></p>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>​	五个基本特性：输⼊，输出，有穷性，确定性，可⾏性 </p>
+<ul>
+<li><strong>输出,输⼊</strong>：算法具有零个或多个输⼊，且⾄少有⼀个或多个输出。关于零个输入，主要是指在一些傻瓜算法中，我们只是单纯求某项，或者本身输入的条件已经给了，*<u>我们可以不要求有输入，但是一定要有输出</u>*，否则一顿操作猛如虎，一看操作——我想要的东西呢？</li>
+<li><strong>有穷性</strong>：算法在执⾏有限的步骤之后，⾃动结束⽽不会出现⽆限循环，并且⼀个步骤在可接受的时间内完成。这也是显然的，我们需要一个能在机器寿命就能运算出来的算法，可喜的是机器寿命相对比较短(而我们人类的寿命也有不过八万餐的说法)，但可悲的是人类经不起等待，<u>有穷性倒不如说是人类对效率的追求的一个前提，我们的算法是寿命中能计算出来的，而我们再优化，可以将其效率提高许多</u></li>
+<li><strong>确定性</strong>：算法的每⼀步骤都具有确定的含义，不会出现⼆义性。<blockquote>
+<p>不得不提到一个很让编译器出bug的片段：<br> int c &#x3D; 6;<br>c &#x3D; (c++) + (++c);<br>printf(“%d”, c);<br>不同的编译器拿到这个问题得到的数值都有所不同。</p>
+</blockquote>
+</li>
+<li><strong>可⾏性</strong>：算法的每⼀步都必须是可⾏的，也就是说，每⼀步都能通过执⾏有限次数完成。</li>
+</ul>
+<h3 id="算法设计的要求"><a href="#算法设计的要求" class="headerlink" title="算法设计的要求"></a>算法设计的要求</h3><ul>
+<li>正确性：算法的正确性是指算法⾄少应该具有输⼊、输出和加⼯处理⽆歧义性，能正确反映问题的需求，能够得到问题的正确答案</li>
+<li>可读性：算法设计的另⼀⽬的是为了便于阅读、理解和交流</li>
+<li>健壮性：当数据输⼊不合法时，算法也能做出相关处理，⽽不是产⽣异常或者莫名其妙的结果</li>
+<li>时间效率⾼和存储量低：设计算法尽量满⾜时间效率⾼和存储量低的需求 事后统计⽅法：通过设计好的测试程序和数据，利⽤计算机计时器对不同算法编织的程序的运⾏时间进⾏⽐较，从⽽确定算法效率的⾼低</li>
+<li>事前分析估算⽅法：在计算机程序编译前，依据统计⽅法对算法进⾏估算。</li>
+</ul>
+<p>​	⼀个程序的运⾏时间，依赖于算法的好坏和问题的输⼊规模。所谓问题输⼊规模是指输⼊量的多少。 我们不关⼼编写程序的过程中所⽤的程序设计语⾔是什么，也不关⼼这些程序将跑在什么样的计算机中，我们只关⼼它所实现的算法。这样，不计那些循环索引递增 和循环终⽌条件、变量声明、打印结果等操作，最终，在分析程序的运⾏时间时，最重要的是把程序看成是独⽴于程序设计语⾔的1算法或⼀系列步骤。</p>
+<p>​	函数的渐进增⻓ 给定两个函数f(n)和g(n),如果存在⼀个整数N，使得对于所有的n&gt;N,f(n)总是⽐g(n)⼤,那么，我们说f(n)的增⻓渐进快于g(n) 我们可以忽略加法常数。</p>
+<p>​	与最⾼次项相乘的常数并不重要。 <strong>最⾼次项的指数⼤的，函数随着n的增⻓，结果也会增⻓更快。</strong> 判断⼀个算法的效率时，函数中的常数和其他次要项常常可以忽略，⽽更应该关注主项（最⾼阶项）的阶数。 某个算法，随着n的增⼤，他会越来越优于另⼀算法，或者越来越差于另⼀个算法。</p>
+<h3 id="算法时间复杂度"><a href="#算法时间复杂度" class="headerlink" title="算法时间复杂度"></a>算法时间复杂度</h3><p>​	在进⾏算法分析时，语法总的执⾏次数T(n)是关于问题规模n的函数，进⽽分析T(n)随n的变化情况并确定T(n)的数量级。算法的时间复杂度，也就是算法的时间量 度，记作T(n)&#x3D;O(f(n))。它表示随问题规模n的增⼤，算法执⾏时间的增⻓率和f(n)的增⻓率相同，称作算法的渐进时间复杂度，简称为时间复杂度。其中f(n)是某个 问题规模n的某个函数。<br>​	⽤⼤写O()来体现算法时间复杂度的记法，我们称之为⼤O记法。<br>​	O(1)称作常数阶,O(n)称作线性阶,O(n^2)称作平⽅阶。<br>推导⼤O阶</p>
+<ul>
+<li>⽤常数1取代运⾏时间中所有加法常数 </li>
+<li>在修改后的运⾏次数函数中，只保留最⾼阶项。</li>
+<li>如果最⾼阶项存在且其系数不是1，则去除这个项相乘的系数。得到的结果就是⼤O阶。</li>
+</ul>
+<p>注意：<strong>执⾏时间恒定的算法，我们称其为具有O（1）的时间复杂度，⼜叫常数阶；不论这个常数是多少我们都记作O（1）</strong></p>
+<p><strong>分析算法的复杂度，关键就是要分析循环结构的运⾏情况。</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>（<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>；i&lt;n;i++）&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>——线性阶，因为<strong>不论这个常数是多少我们都记作O</strong>（1）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-type">int</span> count=<span class="hljs-number">1</span>; <span class="hljs-keyword">while</span>(count&lt;n)&#123;count*=<span class="hljs-number">2</span>;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>——显然因为是*2的关系，我们得到的次数是($log_2n$)，而我们将这种$log_an$统称为对数阶($logn$)</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;n;j++)&#123;printf;&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>——平⽅阶O（$n^2$）</p>
+<figure class="highlight cpp"><figcaption><span>for(int i</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-built_in">fot</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=i;j&lt;n;j++)&#123;printf;&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>——平⽅阶O（$\frac{n\times n+1}{2}$）</p>
+<p>理解⼤O阶推导不算难，难的是对数列的⼀些相关运算，这更多的是考察你的数学知识和能⼒</p>
+<h3 id="常⻅的时间复杂度"><a href="#常⻅的时间复杂度" class="headerlink" title="常⻅的时间复杂度"></a>常⻅的时间复杂度</h3><table>
+<thead>
+<tr>
+<th>执⾏次数函数</th>
+<th>阶</th>
+<th>⾮正式术语</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>12</td>
+<td>O(1)</td>
+<td>常数阶</td>
+</tr>
+<tr>
+<td>2n+3</td>
+<td>O(n)</td>
+<td>线性阶</td>
+</tr>
+<tr>
+<td>3n^2+2n+1</td>
+<td>O(n^2)</td>
+<td>平⽅阶</td>
+</tr>
+<tr>
+<td>5log_2(n)+20</td>
+<td>O(lgn)</td>
+<td>对数阶</td>
+</tr>
+<tr>
+<td>2n+3nlog_2(n)+19</td>
+<td>O(nlgn)</td>
+<td>nlogn</td>
+</tr>
+<tr>
+<td>6n^3^+2n^2^+3n+4</td>
+<td>O(n^3)</td>
+<td>⽴⽅阶</td>
+</tr>
+<tr>
+<td>2^n</td>
+<td>O(2^n)</td>
+<td>指数阶</td>
+</tr>
+</tbody></table>
+<p><strong>显然，我们有如下的时间复杂度耗费时间排序</strong>:<br>$$<br>O(1)&lt;O(logn&lt;O(n)&lt;O(nlogn)&lt;O(n^2)&lt;O(n^3)&lt;O(2^n)&lt;O(n!)&lt;O(n^n)<br>$$</p>
+<p>​	平均运⾏时间是所有情况中最有意义的，因为它是期望的运⾏时间。但是现实情况中，平均运⾏时间很难通过分析得到，⼀般都是通过运⾏⼀定数量的实验数据后估算出来 ⼀般没有特殊说明的情况下，都是指最坏时间复杂度，<u>后面我们会在<strong>排序</strong>中提及到这一所涉及的问题</u>.</p>
+<h3 id="算法空间复杂度"><a href="#算法空间复杂度" class="headerlink" title="算法空间复杂度"></a>算法空间复杂度</h3><p>​	算法的空间复杂度通过计算算法所需的存储空间实现，算法空间复杂度的计算公式记作：S(n)&#x3D;O(f(n)),其中，n为问题的规模，f(n)为语句关于n所占存储空间的函数</p>
+<p>​	⽐如查询闰年，我们是要每次查询就计算⼀次还是先计算后利⽤布尔运算来标记是否为闰年，到需要⽤到的场景再进⾏提取，是1就为闰年，否则为平年； 前者利⽤了时间最⼤程度上保证了空间，⽽后者利⽤了空间最⼤程度换取了时间。<del>特此点名QQ,Wechat的程序员，把大部分内存用来存放这些本地数据</del></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>这章我们讲了数据类型的定义，它是由相互之间存在一种或者多种特定关系的数据元素的集合，也讲了数据结构与算法的密切关系，如果不言算法只谈数据结构，当然是可以的，但是就跟《梁⼭伯与祝英台》不谈“祝英台”一般，我们便觉得好像少了什么。以及一些算法关于时间复杂度、空间复杂度的讨论。<br>下一章节我们会讨论线性表，它是怎么定义的？它由什么组成？我们如何去书写一个线性表？这些都是下一篇文章的着力点。</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2024/09/08/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E4%BA%8C%E8%AE%B2%EF%BC%9A%E7%BA%BF%E6%80%A7%E8%A1%A8%E3%80%90%E9%A1%BA%E5%BA%8F%E8%A1%A8%E3%80%91/"
+      title="数据结构与算法——第二讲：线性表【顺序表】"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        数据结构与算法——第二讲：线性表【顺序表】
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/05/09/%E3%80%90C%E8%AF%AD%E8%A8%80_C++%E3%80%91%E5%87%BD%E6%95%B0%EF%BC%8C%E5%BD%A2%E5%8F%82%E4%B8%8E%E5%AE%9E%E5%8F%82/"
+      title="[C/Cpp]函数,形参与实参"
+     >
+
+    <p class="title-text">
+      
+        [C/Cpp]函数,形参与实参
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Mongxin Chan<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
