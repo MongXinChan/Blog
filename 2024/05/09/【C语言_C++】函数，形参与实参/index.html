@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言：我们遇到一个问题，如果要实现多次核心代码一样的代码段，我们发现会重复输入几次，并且其代码维护量也会代数增长，而且会发现每次重复在浪费时间。我们在想我们能不能有一个东西能来帮助我们解决这个问题，这也便是我们这篇章要讲的重点之一——函数  我们认为，一个代码要具有简洁性，并且可维护性高，显而易见100段行功能相似的代码段，如果出错要逐行更改困难；    我们注意到，实际上#include&amp;lt">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-05-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-09-10T05:11:20.776Z">
+<meta property="article:modified_time" content="2024-09-11T04:41:32.118Z">
 <meta property="article:author" content="John Doe">
 <meta property="article:tag" content="运行逻辑">
 <meta property="article:tag" content="C&#x2F;Cpp">
@@ -56,7 +56,7 @@
   
     
 <div id="banner" class="">
-  <img src="/" itemprop="image">
+  <img src="/blog%5Csource%5Cimages%5CBanner.jpg" itemprop="image">
   <div id="banner-dim"></div>
 </div>
  
@@ -183,7 +183,7 @@
   <div class="widget-wrap">
     <div class="widget">
       <h3 class="widget-title">标签</h3>
-      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6/" rel="tag">信息学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6/" rel="tag">信息学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%81%E7%AE%97%E6%B3%95/" rel="tag">数据结构、算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
     </div>
   </div>
 
@@ -237,7 +237,7 @@
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <h2 id=""><a href="#" class="headerlink" title=""></a></h2><blockquote>
+          <h2 id><a href="#" class="headerlink" title></a></h2><blockquote>
 <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><p>我们遇到一个问题，如果要实现多次核心代码一样的代码段，我们发现会重复输入几次，并且其代码维护量也会代数增长，而且会发现每次重复在浪费时间。我们在想我们能不能有一个东西能来帮助我们解决这个问题，这也便是我们这篇章要讲的重点之一——函数</p>
 </blockquote>
 <p>我们认为，一个代码要具有<strong>简洁性</strong>，并且<strong>可维护性</strong>高，显而易见100段行功能相似的代码段，如果出错要逐行更改困难；<br>    我们注意到，实际上<code>#include&lt;stdio.h&gt;</code>和<code>#include&lt;iostream&gt;</code>本质上就是封装了许许多多代码段综合而成的，编译后产生的是许多行<code>stdio.h</code>和<code>iostream</code>所包含的代码；<br>    而我们将这种使用一个“<strong>压缩包</strong>”把许多段代码段封装的“<strong>压缩包</strong>”称为<strong>函数</strong>，而<code>#include&lt;&gt;</code>是函数的一种，我们称之为<strong>库函数</strong>。<br>@<a href="%E7%9B%AE%E5%BD%95">TOC</a></p>
@@ -282,13 +282,13 @@
 <nav id="article-nav">
   <a class="article-nav-btn left "
     
-      href="/2024/09/03/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%80%E8%AE%B2%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E7%9A%84%E7%AE%80%E5%8D%95%E5%AE%9A%E4%B9%89/"
-      title="数据结构与算法——第一讲：数据结构与算法的简单定义"
+      href="/2024/05/17/%E4%BF%A1%E6%81%AF%E5%AD%A6%E7%AB%9E%E8%B5%9B%E7%AC%94%E8%AE%B0/"
+      title="信息学竞赛笔记"
      >
     <i class="fa-solid fa-angle-left"></i>
     <p class="title-text">
       
-        数据结构与算法——第一讲：数据结构与算法的简单定义
+        信息学竞赛笔记
         
     </p>
   </a>
