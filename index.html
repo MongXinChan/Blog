@@ -42,6 +42,7 @@
     <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
     <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
     <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+    <link rel="stylesheet" href="https://github.com/GRAVITYELSW/Typro-theme-YuanShan" media="screen" type="text/css">
   
   
 <link rel="stylesheet" href="/css/style.css">
@@ -53,7 +54,7 @@
   
     
 <div id="banner" class=" is_home ">
-  <img src="https://raw.githubusercontent.com/MongXinChan/Blog/master/images/Banner.jpg" itemprop="image">
+  <img src="https://gitee.com/half-baking-life/BlogImg/raw/master/Banner.jpg" itemprop="image">
   <div id="banner-dim"></div>
 </div>
  
@@ -158,7 +159,7 @@
       <div class="category-box">
             <a class="category-link" href="/categories/%E8%AF%AD%E6%B3%95/">
                 语法
-                <div class="category-count">2</div>
+                <div class="category-count">5</div>
             </a>
         
             <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
@@ -191,6 +192,166 @@
     </div>
     <div id="content-body">
       
+   
+
+
+<article id="post-数据结构与算法——第三讲：线性表【单项链表】" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/09/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9A%E7%BA%BF%E6%80%A7%E8%A1%A8%E3%80%90%E5%8D%95%E9%A1%B9%E9%93%BE%E8%A1%A8%E3%80%91/">数据结构与算法——第三讲：单向链表</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-09-14T12:02:06.454Z" itemprop="datePublished">2024-09-14</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E8%AF%AD%E6%B3%95/">语法</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            6.9k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              前言上一节中我们学习了typedef、malloc,calloc和realloc关键字，以及对于结构体struct的应用，以及最重要的就是我们学习了什么是顺序表，以及顺序表如何实现，如何通过结构体来完成对顺序表的一个初步使用，但是，不得不提的一点是，我们会利用assert宣言来判断指针是否为空，以及对于一个简单的顺序表的一个完成，但是我们会发现，由于数据的增多，头删、头插都会因此而变得时间复杂度更为乱，不恒定，这个时候我们就引如这一章的主题——链表。我们会发现链表的概念让顺序表的利用更为便捷，从而也方便了我们在后面对于栈以及队列的使用。
+@TOC
+顺序表的问题及其思考
+
+中间&#x2F;头部的插入删除，时间复杂度为O(N)
+增容需要申请新空间，拷贝数据，释放旧空间。会有不小的消耗。
+增容一般是呈2倍的增长，势必会有一例如当前容量为100，满了以后增容到 200，我们再继续定的空间浪费。插入了5个数据，后面没有数据插入了那么就浪费了95个数据空间。
+
+
+在不断的生产生活中，我们发现仅仅靠一个顺序表这些东西对于时间，空间的浪费还是很显著的，特别是在一个大的项目中，我们不妨想一下，既然...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/09/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9A%E7%BA%BF%E6%80%A7%E8%A1%A8%E3%80%90%E5%8D%95%E9%A1%B9%E9%93%BE%E8%A1%A8%E3%80%91/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+   
+
+
+<article id="post-[CCpp]在C中的Cpp" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/09/13/%5BCCpp%5D%E5%9C%A8C%E4%B8%AD%E7%9A%84Cpp/">[C/Cpp]在C中的Cpp</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-09-13T15:18:17.871Z" itemprop="datePublished">2024-09-13</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E8%AF%AD%E6%B3%95/">语法</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            9.4k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              
+Since C++ is based on C, you must be familiar with the  syntax of C in order to program in C++, just as you  must be reasonably fluent in algebra in order to tackle  calculus.
+C++是以C为基础的，所以要用C++编程时候，就必须要熟悉C的语法，就像要解决微积分必须对代数十分了解一样。
+——Thinking in C++
+
+前言由于我们对Cpp的框架还不够了解，在此我这一篇章进行对Cpp语法的拆分（没错，这个Cpp的坑也算是填起来了），Cpp对于学过C的人来说好像似曾相识，两种差别并不是很多，但是为何Cpp有了如此高效的效率？Cpp对C的特征进行了一些修改，Cpp更为复杂的特性将会在后面中介绍。
+@TOC
+创建函数标准C和Cpp有一个特征叫做函数原型(function prototyping ).用函数原型，在声明和定义一个函数时，必须使用变量类型描述，也称为“原型”。调用函数时，编译器使用原形确保正确传递...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/09/13/%5BCCpp%5D%E5%9C%A8C%E4%B8%AD%E7%9A%84Cpp/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
    
 
 
@@ -669,6 +830,83 @@ e.g.1向数组$a[5]$输入五个数字，并乘以k倍，打印之前与之后�
     <a class="right-panel  non-pic  "
       
       href="/2024/05/09/%E3%80%90C%E8%AF%AD%E8%A8%80_C++%E3%80%91%E5%87%BD%E6%95%B0%EF%BC%8C%E5%BD%A2%E5%8F%82%E4%B8%8E%E5%AE%9E%E5%8F%82/" 
+    >
+       
+      <i class="fa-solid fa-angle-right non-pic"></i>
+       
+    </a>
+     
+  </div>
+  
+</article>
+
+
+
+
+
+
+   
+
+
+<article id="post-数据结构与算法——第四讲：线性表【静态链表以及双向链表】" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 itemprop="name">
+        <a class="p-name article-title" href="/2024/05/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E7%BA%BF%E6%80%A7%E8%A1%A8%E3%80%90%E9%9D%99%E6%80%81%E9%93%BE%E8%A1%A8%E4%BB%A5%E5%8F%8A%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E3%80%91/">[C/Cpp]函数,形参与实参</a>
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-05-08T16:00:00.000Z" itemprop="datePublished">2024-05-09</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E8%AF%AD%E6%B3%95/">语法</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            721 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <div class="truncate-text">
+            
+              前言我们学习了这两种线性结构，但我们会发现这在解决形如12个月问题，一周7天的链表表示中还并不能很完美展现，这就需要我们在本章来定义一个静态链表，双向链表以及循环链表。
+回眸数组——静态链表回顾数组，我们发现，素组的元素都是由两个数据域组成的，data和cur。也就是说，数组的每个下标都对应一个data和一个cur。数据域data，用来存放数据元素，也就是通常我们要处理的数据：而cur相当于单链表种的next指针，存放该元素的后继在数组种的下标，我们把cur叫做游标。
+我们把这种数组描述的链表叫做静态链表。
+123456#define MAXSIZE 1000typedef struct&#123;    ElemType data;    int cur;&#125;Component,SaticLinkList[MAXSIZE];
+
+另外我们对数组第一个和最后一个元素作为特殊元素处理，不存数据。我们通常把未被使用的数组元素称为备用链表。而数组第一个元素，即下标为0的元素的cur就存放备用链表的第一个结点的下标；而数组的最后一个元素的cur则存放第一个由数值的元素的下标，相当于...
+            
+          </div>
+        
+      </div>
+
+         
+    </div>
+    
+     
+    <a class="right-panel  non-pic  "
+      
+      href="/2024/05/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E7%BA%BF%E6%80%A7%E8%A1%A8%E3%80%90%E9%9D%99%E6%80%81%E9%93%BE%E8%A1%A8%E4%BB%A5%E5%8F%8A%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E3%80%91/" 
     >
        
       <i class="fa-solid fa-angle-right non-pic"></i>

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>数据结构与算法——第三讲：单向链表 | MongXin&#39;s Fun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="前言上一节中我们学习了typedef、malloc,calloc和realloc关键字，以及对于结构体struct的应用，以及最重要的就是我们学习了什么是顺序表，以及顺序表如何实现，如何通过结构体来完成对顺序表的一个初步使用，但是，不得不提的一点是，我们会利用assert宣言来判断指针是否为空，以及对于一个简单的顺序表的一个完成，但是我们会发现，由于数据的增多，头删、头插都会因此而变得时间复杂度更">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法——第三讲：单向链表">
+<meta property="og:url" content="https://mongxinchan.github.io/2024/09/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9A%E7%BA%BF%E6%80%A7%E8%A1%A8%E3%80%90%E5%8D%95%E9%A1%B9%E9%93%BE%E8%A1%A8%E3%80%91/index.html">
+<meta property="og:site_name" content="MongXin&#39;s Fun">
+<meta property="og:description" content="前言上一节中我们学习了typedef、malloc,calloc和realloc关键字，以及对于结构体struct的应用，以及最重要的就是我们学习了什么是顺序表，以及顺序表如何实现，如何通过结构体来完成对顺序表的一个初步使用，但是，不得不提的一点是，我们会利用assert宣言来判断指针是否为空，以及对于一个简单的顺序表的一个完成，但是我们会发现，由于数据的增多，头删、头插都会因此而变得时间复杂度更">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-14T12:02:06.454Z">
+<meta property="article:modified_time" content="2024-09-14T16:08:52.812Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="运行逻辑">
+<meta property="article:tag" content="C&#x2F;Cpp">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="MongXin's Fun" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+    <link rel="stylesheet" href="https://github.com/GRAVITYELSW/Typro-theme-YuanShan" media="screen" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="https://gitee.com/half-baking-life/BlogImg/raw/master/Banner.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>MongXin's Fun </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/%5Bobject%20Object%5D></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Mongxin Chan </div>
+      <div class="dot"></div>
+      <div class="subtitle">这里就是罗德岛，要跳就在这里跳 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://steamcommunity.com/id/MongXin_Chan" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/MongXinChan" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/%E8%AF%AD%E6%B3%95/">
+                语法
+                <div class="category-count">5</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                数据结构
+                <div class="category-count">2</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%AB%9E%E8%B5%9B/">
+                竞赛
+                <div class="category-count">1</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6/" rel="tag">信息学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%81%E7%AE%97%E6%B3%95/" rel="tag">数据结构、算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-数据结构与算法——第三讲：线性表【单项链表】" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        数据结构与算法——第三讲：单向链表
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-09-14T12:02:06.454Z" itemprop="datePublished">2024-09-14</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E8%AF%AD%E6%B3%95/">语法</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            6.9k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上一节中我们学习了<code>typedef</code>、<code>malloc</code>,<code>calloc</code>和<code>realloc</code>关键字，以及对于结构体<code>struct</code>的应用，以及最重要的就是我们学习了什么是顺序表，以及顺序表如何实现，如何通过结构体来完成对顺序表的一个初步使用，但是，不得不提的一点是，我们会利用<code>assert</code>宣言来判断指针是否为空，以及对于一个简单的顺序表的一个完成，但是我们会发现，由于数据的增多，头删、头插都会因此而变得时间复杂度更为乱，不恒定，这个时候我们就引如这一章的主题——链表。我们会发现链表的概念让顺序表的利用更为便捷，从而也方便了我们在后面对于栈以及队列的使用。</p>
+<p>@<a href="%E7%9B%AE%E5%BD%95">TOC</a></p>
+<h2 id="顺序表的问题及其思考"><a href="#顺序表的问题及其思考" class="headerlink" title="顺序表的问题及其思考"></a>顺序表的问题及其思考</h2><blockquote>
+<ol>
+<li>中间&#x2F;头部的插入删除，时间复杂度为O(N)</li>
+<li>增容需要申请新空间，拷贝数据，释放旧空间。会有不小的消耗。</li>
+<li>增容一般是呈2倍的增长，势必会有一例如当前容量为100，满了以后增容到 200，我们再继续定的空间浪费。插入了5个数据，后面没有数据插入了那么就浪费了95个数据空间。</li>
+</ol>
+</blockquote>
+<p>在不断的生产生活中，我们发现仅仅靠一个顺序表这些东西对于时间，空间的浪费还是很显著的，特别是在一个大的项目中，我们不妨想一下，既然</p>
+<blockquote>
+<p>其<strong>逻辑结构一定连续</strong>，但是<strong>其物理结构不一定连续</strong>。道理很简单，假设我们作为生产绿皮火车的公司之一，我们会给每一个车厢生产编号，<code>No.26</code>、<code>No.28</code>等等，但我们会发现绿皮火车的车厢排序并不会因为生产编号的固定而固定，一列绿皮火车的车厢组合是任意的，也就是说，**并不在意生产编号是否连号，而注重的是连接后产生的<u>车厢编号</u>**。</p>
+</blockquote>
+<p>我们不难想象到，我们在旅游淡季的时候，绿皮火车也好，高铁也罢，会进行适量的减厢子，在旅游旺季的时候，也会适量进行加厢。<del>有一说一感谢广铁U彩让我在国庆放假前最后一晚上候补到第二天下午的十点车票，也感谢美丽的价格让我在中秋时节这个时候还在宿舍写稿。</del>我们如果对火车的结构进行过观察，我们会发现火车的车厢，高铁的车厢都是<strong>通过车钩或者牵引杆来进行两节相连</strong>。我们在想，能不能存在一种链接方式，使得我们的数据之间可以像车厢一样链接起来。</p>
+<p><strong>这就不得不提我们对于指针的应用了</strong>。</p>
+<h2 id="单链表的引入"><a href="#单链表的引入" class="headerlink" title="单链表的引入"></a>单链表的引入</h2><p>我们一开始就说到，顺序表主要的是谈及<strong>其逻辑结构一定连续</strong>，但是<strong>其物理结构不一定连续</strong>，这样我们就很巧妙地解决了来连续的空间存储数据，而且可以进行一些设计，使得内存的利用率提升，在这里不表。</p>
+<h3 id="变量？还是地址？"><a href="#变量？还是地址？" class="headerlink" title="变量？还是地址？"></a>变量？还是地址？</h3><p>不难发现，我们对于数据的存储如果单纯只是应用于指针来看的话，那么这个信息也只是存储了地址，并没有什么特别的地方，但是我们如果想到<code>struct</code>结构体，我们会发现，我们真的做到了——把一个变量以及一个地址放到了里面。而且我们发现借助结构体可以包含更多的数据：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> &#123;<br>    <span class="hljs-type">int</span> a;          <span class="hljs-comment">// 链表节点的数据部分</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> *next; <span class="hljs-comment">// 指向下一个节点的指针</span><br>    <span class="hljs-comment">//相当于N *next;</span><br>&#125;N;<br><span class="hljs-comment">//此时N等价于struct Node</span><br></code></pre></td></tr></table></figure>
+
+<p>我们发现通过结构体<code>struct</code>很容易就把我们想要的东西都包含在内，我们在这里再引入跟<strong>车钩或者牵引杆</strong>相似的功能，我们把我们存放数据源信息的域称为<strong>数据域</strong>，把存储直接后继位置的域称为<strong>指针域</strong>。指针域中存储的信息称为<strong>指针</strong>或<strong>链</strong>。这两部分信息组成数据元素$a_i$的存储映像，称为**结点(Node)**。</p>
+<h3 id="节点-Node"><a href="#节点-Node" class="headerlink" title="节点(Node)"></a>节点(Node)</h3><p>我们把n个结点的链结成一个链表，即为线性表($a_1,a_2,a_3$…$,a_n$)的链式存储结构，因为此链表的每个结点中<strong>只包含一个指针域</strong>，也称作<strong>单链表</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs mermaid">classDiagram<br>class Pre<br>Next &lt;|-- Pre<br>Next: Data<br>Next: Pointer()<br>Pre:Data<br>Pre:Pointer(Next)<br></code></pre></td></tr></table></figure>
+
+<p>同样的，每个节点中包含<strong>两个指针域</strong>的，称作**双向链表(指向前一个指针，又指向后一个指针)**。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs mermaid">classDiagram<br>Next &lt;|--|&gt;Cur<br>Cur&lt;|--|&gt;Preev<br>Next: Data<br>Next: Pointer()<br>Cur:Data<br>Cur:Pointer(Next,Preev)<br>Preev:Data<br>Preev:Pointer(Cur)<br></code></pre></td></tr></table></figure>
+
+<p>对于线性表来说，总得有个首尾，链表也不例外。我们把<strong>链表第一个结点的存储位置叫做头指针</strong>，***<u>那么整个链表的存取就必须是从头指针开始进行了</u>***（这里很重要，后面还会引入”循环链表”）。之后的每一个结点，其实就是上一个的后继指针指向的位置。不难想象到，最后一个结点它的指针指向的一定是<code>Null</code>，空指针。</p>
+<p>有时候，我们为了方便对链表的观察，我们会<strong>在单链表的第一个结点前设立一个结点，称为头结点</strong>。头结点的数据域可以不存储任何信息，我们也可以存储一些关于这个链表的相关信息~</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs mermaid">classDiagram<br>class Pre<br>Pre &lt;|-- Node<br>Node: Pointer()<br>Node: Data[OR NOT]<br>Next &lt;|-- Pre<br>Next: Data<br>Next: Pointer()<br>Pre:Data<br>Pre:Pointer(Next)<br></code></pre></td></tr></table></figure>
+
+<h3 id="概念区分"><a href="#概念区分" class="headerlink" title="概念区分"></a>概念区分</h3><h4 id="头指针"><a href="#头指针" class="headerlink" title="头指针"></a>头指针</h4><ul>
+<li>头指针是链表指向第一个结点的指针，若链表又头结点，则是指向头结点的指针</li>
+<li>头指针可以用来区别这个链表的功能（也就是语文中的区别词）</li>
+<li>无论链表是否为空，头指针均不为空。头指针是链表的必要元素。</li>
+</ul>
+<h4 id="头结点"><a href="#头结点" class="headerlink" title="头结点"></a>头结点</h4><ul>
+<li>头结点是为了操作的统一和方便而设立的，放在第一元素的结点之前，其数据域一般无意义(也可以存放链表的长度)</li>
+<li>有了头结点，对在第一元素结点前插入结点和删除第一节点，其操作与其他结点的操作就统一了。</li>
+<li>头结点不一定是链表必须要素<strong>（但我觉得何尝不可以有一个呢？方便我们后续写代码的逻辑统一）</strong></li>
+</ul>
+<h3 id="线性表链式存储结构"><a href="#线性表链式存储结构" class="headerlink" title="线性表链式存储结构"></a>线性表链式存储结构</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> &#123;<br>    <span class="hljs-type">int</span> a;          <span class="hljs-comment">// 链表节点的数据部分</span><br>    <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> *next; <span class="hljs-comment">// 指向下一个节点的指针</span><br>    <span class="hljs-comment">//相当于N *next;</span><br>&#125;N;<br><span class="hljs-comment">//此时N等价于struct Node</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> *LinkList;<span class="hljs-comment">//定义了一个链表</span><br></code></pre></td></tr></table></figure>
+
+<p>我们也可以从这个结构中窥探到，结点由存放数据元素的数据域和存放后继结点地址的指针域组成。假设p是指向线性表第<code>i</code>个元素的捐针，则该结点$a_i$的数摇域我们可以用<code>p-&gt;data</code>来表示、<code>p-&gt;data</code>的值是一个数据元素，结点<code>a_[i-1]</code>的指针域可以用<code>p-&gt;a_[i-1]</code>来表示，<code>p-&gt;next</code>的值是一个指针。<code>p-&gt;next</code>指向第<code>i+1</code>个元素，围指向a_1+1的指针。也就是说，如果<code>p-&gt;data</code>等于<code>a-1</code>,那么<code>p-&gt;next-&gt;data</code>等于<code>a_i+1</code>.</p>
+<h2 id="单链表的读取"><a href="#单链表的读取" class="headerlink" title="单链表的读取"></a>单链表的读取</h2><p>获得链表第<code>i</code>个数据的算法思路：</p>
+<ol>
+<li>声明一个指针p指向链表第一个结点，初始化<code>j</code>从1开始</li>
+<li>当$j&lt;i$时，就遍历链表，让p的指针向后移动，不断指向下一结点，$j$累计+1；</li>
+<li>若找到链表末尾为空，则说明第<code>i</code>个链表不存在；</li>
+<li>否则查找成功，返回结点p的数据</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">Status <span class="hljs-title">GetElem</span><span class="hljs-params">(LinkList L,<span class="hljs-type">int</span> i,ElemType *e)</span></span>&#123;<br>    <span class="hljs-type">int</span> j;<br>    LinkList p;<br>    p=L-&gt;next;<br>    j=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span>(p&amp;&amp;j&lt;<span class="hljs-number">1</span>)&#123;<br>        p=p-&gt;next;<span class="hljs-comment">//核心</span><br>         j++;<br>    &#125;<br>    <span class="hljs-keyword">if</span>(!p||j&gt;<span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> ERROR;<br>    *e =p-&gt;data;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>由于链表的特性是我们不知道它有多长，而因此利用<code>p=p-&gt;next</code>这一<strong>”工作指针后移“</strong>，这其实也是很多算法的常用技术。</p>
+<h2 id="单链表的插入与删除"><a href="#单链表的插入与删除" class="headerlink" title="单链表的插入与删除"></a>单链表的插入与删除</h2><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>不妨这样思考这个问题，我们要实现链表的插入，，只需要绕过<code>a-&gt;next</code>和<code>p-&gt;next</code>的指针做一点小改变就可以*(<strong>alert</strong>)*.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs mermaid">classDiagram<br>class Pre<br>Pre &lt;|-- Node<br>Next &lt;-- Pre<br>PExample &lt;.. Node<br>Pre &lt;.. PExample<br>Node: Pointer()<br>Node: Data[OR NOT]<br>PExample: Pointer()<br>PExample: Data<br>Next: Data<br>Next: Pointer()<br>Pre:Data<br>Pre:Pointer(Next)<br><br></code></pre></td></tr></table></figure>
+
+<p>我们可以注意到，<strong>空箭头指向的是原本要指向的内容</strong>，而虚<strong>线箭头指向的是修改后的链表</strong>，也就是我们要修改Node中的Pointer，以及PExample中的Pointer()；</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs cpp">PExample-&gt;Pointer=Pre-&gt;Pointer;<br>Pre-Pointer=PExample;<br></code></pre></td></tr></table></figure>
+
+<p>相似的，对于单链表的表头和表尾的特殊情况，操作是相同的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs mermaid">classDiagram<br>class NodeHead<br>NodeHead--&gt; Node<br>NodeHead..&gt; Pre<br>Pre..&gt;Node<br><br>NodeHead:Pointer()<br>NodeHead:Data<br><br>Pre:Pointer()<br>Pre:Data<br><br>Node:Pointer()<br>Node:Data<br><br></code></pre></td></tr></table></figure>
+
+<p>而单链表的表尾添加方法是如下：把表尾的空指针指向下一个数据的地址。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs mermaid">classDiagram<br>NodeTail..&gt; Node<br>NodeTail:Data()<br>NodeTail:Pointer<br>Node:^<br>Node:Data()<br></code></pre></td></tr></table></figure>
+
+<p>单链表第$i$个数据插入结点的算法思路：</p>
+<ol>
+<li>声明一个指针p指向链表头结点，初始化$j$从1开始；</li>
+<li>当$j$&lt;i时，就遍历链表，让p的指针向后移动，不断指向下一结点，$j$累计加1；</li>
+<li>若到链表末尾$p$为空，则说明第$i$个结点不存在；</li>
+<li>否则查找成功，在系统中生成一个空结点s；</li>
+<li>将数据元素e赋值给s-&gt;data;</li>
+<li>单链表的插入标准语句s-&gt;next&#x3D;p-&gt;next;p-&gt;next&#x3D;s;</li>
+<li>返回成功</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">Status <span class="hljs-title">ListInsert</span><span class="hljs-params">(LinkList *L,<span class="hljs-type">int</span> i,ElemType e)</span></span>&#123;<br>    <span class="hljs-type">int</span> j;<br>    LinkList p,s;<br>    p=*L;<br>    j=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span>(p&amp;&amp;j&lt;i)&#123;<br>        p=p-&gt;next;<br>        j++;<span class="hljs-comment">//用++j实际上会更快一点</span><br>    &#125;<br>    <span class="hljs-keyword">if</span>(!p||j&gt;i)<br>        <span class="hljs-keyword">return</span> ERROR;<br>    s=(LinkList*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(Node));<br>    s-&gt;data=e;<br>    s-&gt;next=p-&gt;next;<br>    p-&gt;next=s;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>我们通过将其的前继结点的指针绕过，指向它的后继结点即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs mermaid">classDiagram<br>class Pre<br>Pre &lt;|.. Node<br>Next &lt;|-- Pre<br>PExample &lt;-- Node<br>Pre &lt;-- PExample<br>Node: Pointer()<br>Node: Data[OR NOT]<br>PExample: Pointer()<br>PExample: Data<br>Next: Data<br>Next: Pointer()<br>Pre:Data<br>Pre:Pointer()<br></code></pre></td></tr></table></figure>
+
+<p>也就是</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs CPP">PExample=Node-&gt;next;<br>Node-&gt;Pointer=PExample-&gt;Pointer;<br></code></pre></td></tr></table></figure>
+
+<p>也就是单链表第$i$个数据删除结点的算法，其思路为：</p>
+<ol>
+<li>声明一个指针p指向链表头结点，初始化$j$从1开始；</li>
+<li>当$j$&lt;i时，就遍历链表，让p的指针向后移动，不断指向下一结点，$j$累计加1；</li>
+<li>若到链表末尾Next为空，则说明第$i$个结点不存在；</li>
+<li>否则查找成功，将要删除的结点PExample-&gt;Pointer赋值给Node-&gt;Pointer；</li>
+<li>单链表的删除标准语句Node-&gt;Pointer&#x3D;PExample-&gt;Pointer;</li>
+<li>将PExample-&gt;Pointer中的数据赋值给e，作为返回</li>
+<li>释放结点PExample;</li>
+<li>返回成功</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">Status <span class="hljs-title">ListDelete</span><span class="hljs-params">(LinkList *L,<span class="hljs-type">int</span> i,ElemType *e)</span></span>&#123;<br>    <span class="hljs-type">int</span> j;<br>    LinkList p,q;<br>    Node=*L;<br>    j=<span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span>(Node-&gt;Pointer&amp;&amp;j&lt;i)&#123;<br>        Node=Node-&gt;Pointer;<br>        ++j<br>    &#125;<br>    <span class="hljs-keyword">if</span>(!(Node-&gt;Pointer)||j&gt;i)&#123;<br>        <span class="hljs-keyword">return</span> ERROR;<br>    &#125;<br>    PExample=Node-&gt;Pointer;<br>    Node-&gt;Pointer=PExample-&gt;Pointer;<br>    *e=PExample-&gt;Data;<br>    <span class="hljs-built_in">free</span>(PExample);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>显然，对于插入或删除数据越频繁的操作，单链表的效率优势更为明显。</p>
+<h2 id="单链表整个表的创建"><a href="#单链表整个表的创建" class="headerlink" title="单链表整个表的创建"></a>单链表整个表的创建</h2><p>不妨回眸一下数组，我们数组就是因为有明确的数据个数，数据类型，并且有赋值才确立的，而相似的有了动态顺序表，我们一直在强调链表是不需要声明个数的，那么也就是说我们不需要明确的数据个数，只需要数据类型就可以定义出一个单链表</p>
+<p>创建一个单链表的整体思路：</p>
+<ol>
+<li>声明一指针p和计数器变量account</li>
+<li>初始化——空链表L</li>
+<li>让L的头结点的指针指向NULL，即建立一个带头结点的单链表</li>
+<li>循环<ol>
+<li>生成一个新节点，并赋值给p</li>
+<li>随机生成数字赋值给p的数据域p-&gt;data;</li>
+<li>将p插入到头结点与前一新节点之间。</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">CreateListHead</span><span class="hljs-params">(LinkList *L,<span class="hljs-type">int</span> n)</span></span>&#123;<br>    LinkList p;<br>    <span class="hljs-type">int</span> account;<br>    <span class="hljs-built_in">srand</span>(<span class="hljs-built_in">time</span>(<span class="hljs-number">0</span>));<br>    *L=(LinkList)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(Node));<br>    (*L)-&gt;next=<span class="hljs-literal">NULL</span>;<br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>        p=(LinkList)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(Node));<br>        p-&gt;data=<span class="hljs-built_in">rand</span>()%<span class="hljs-number">100</span><span class="hljs-number">+1</span>;<br>        p-&gt;next=(*L)-&gt;next;<br>        (*L)-&gt;next=p;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这实际上就是始终让新节点在第一的位置。我们也可以称之为<strong>头插法</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs mermaid">classDiagram<br>class Pre<br>Pre &lt;|-- Node<br>Next &lt;-- Pre<br>PExample &lt;.. Node<br>Pre &lt;.. PExample<br>Node: Pointer()<br>Node: Data[OR NOT]<br>PExample: Pointer()<br>PExample: Data<br>Next: Data<br>Next: Pointer()<br>Pre:Data<br>Pre:Pointer(Next)<br><br></code></pre></td></tr></table></figure>
+
+<p>自然我们也有<strong>尾插法</strong>:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs CPP"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">CreateListHead</span><span class="hljs-params">(LinkList *L,<span class="hljs-type">int</span> n)</span></span>&#123;<br>    LinkList p,r;<br>    <span class="hljs-type">int</span> i;<br>    <span class="hljs-built_in">srand</span>(<span class="hljs-built_in">time</span>(<span class="hljs-number">0</span>));<br>    *L=(LinkList)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(Node));<br>    r=*L;      <span class="hljs-comment">//r为指向尾部的结点</span><br>    <span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>        p=(Node*)<span class="hljs-built_in">malloc</span>(<span class="hljs-built_in">sizeof</span>(Node));<br>        p-&gt;data=<span class="hljs-built_in">rand</span>()%<span class="hljs-number">100</span><span class="hljs-number">+1</span>;<br>        r-&gt;next=p;      <span class="hljs-comment">//将表尾终端的结点的指针指向新结点</span><br>        r=p;        <span class="hljs-comment">//将当前新结点定义为表尾端结点</span><br>    &#125;<br>    r-&gt;next=<span class="hljs-literal">NULL</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="单链表整个表的删除"><a href="#单链表整个表的删除" class="headerlink" title="单链表整个表的删除"></a>单链表整个表的删除</h2><p>我们之前提过，内存是作为计算机重要的性能指标之一，它的有限性决定了我们在必要时候要删除一些变量占用了内存(局部变量存在的原因之一)，当我们不再使用这个单链表的时候，们需要把他们销毁。</p>
+<p>删除的算法思路如下：</p>
+<ol>
+<li>声明一指针p和q</li>
+<li>将第一个结点赋值给p。</li>
+<li>循环：<ol>
+<li>将下一结点赋值给q；</li>
+<li>释放p</li>
+<li>将q赋值给p</li>
+</ol>
+</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">Status <span class="hljs-title">CleanList</span><span class="hljs-params">(LinkList *L)</span></span>&#123;<br>  LinkList p,q;<br>  p=(*L)-&gt;next;<br>  <span class="hljs-keyword">while</span>(p)&#123;<br>  q=p-&gt;next;<br>  <span class="hljs-built_in">free</span>(p);<br>  p=q;<br>  &#125;<br>  (*L)-&gt;next=<span class="hljs-literal">NULL</span>;<span class="hljs-comment">//头指针域为空</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>若线性表需要频繁查找，很少进行插入和删除操作时，宜采用顺序存储结构。</p>
+<p>当线性表中的元素个数变化较大或者不知道具体存储多少个元素个数的时候，最好用单链表结构。</p>
+<p>我们学习了这两种线性结构，但我们会发现这在解决形如12个月问题，一周7天的链表表示中还并不能很完美展现，这就需要我们在第四章来定义一个静态链表，双向链表以及循环列表。</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/09/13/%5BCCpp%5D%E5%9C%A8C%E4%B8%AD%E7%9A%84Cpp/"
+      title="[C/Cpp]在C中的Cpp"
+     >
+
+    <p class="title-text">
+      
+        [C/Cpp]在C中的Cpp
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Mongxin Chan<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
