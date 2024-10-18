@@ -234,7 +234,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            75k 词 
+            52k 词 
           </div>
         </div>
         
@@ -1289,7 +1289,21 @@
 <p>【分析】</p>
 <p>​	首先需要简化题目描述。问题简化为，邮箱密码6xx，这个数是18的倍数同时，问这个密码是什么？</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flowchart TB;</span><br><span class="line">	A--&gt;B;</span><br><span class="line">	B--&gt;C;</span><br><span class="line">	C--Y--&gt;D;</span><br><span class="line">	D--&gt;E;</span><br><span class="line">	E--Y--&gt;F;</span><br><span class="line">	F--N--&gt;C;</span><br><span class="line">	C--N--&gt;H;</span><br><span class="line">	A([开始]);</span><br><span class="line">	B(i=0);</span><br><span class="line">	C&#123;i&lt;100?&#125;;</span><br><span class="line">	D(n=600+i?);</span><br><span class="line">	E&#123;n%18=0?&#125;;</span><br><span class="line">	F[\i=i+1\];</span><br><span class="line">	H([结束]);</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">flowchart TB;
+    A-->B;
+    B-->C;
+    C--Y-->D;
+    D-->E;
+    E--Y-->F;
+    F--N-->C;
+    C--N-->H;
+    A([开始]);
+    B(i=0);
+    C{i<100?};
+    D(n=600+i?);
+    E{n%18=0?};
+    F[\i=i+1\];
+    H([结束]);</pre>
 
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">        <span class="type">int</span> n=<span class="number">600</span>+i;</span><br><span class="line">        <span class="keyword">if</span>(n%<span class="number">18</span>==<span class="number">0</span>)std::cout&lt;&lt;n&lt;&lt;std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -1298,7 +1312,18 @@
 </ol>
 <blockquote>
 <p>【分析】</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">flowchart TB;</span><br><span class="line">	A(开始)--&gt;B(i=0);</span><br><span class="line">	B(i=0)--&gt;C&#123;i&lt;10?&#125;;</span><br><span class="line">	C&#123;i&lt;10?&#125;--Y--&gt;D(j=0);</span><br><span class="line">	D(j=0)--&gt;E&#123;i&lt;10?&#125;;</span><br><span class="line">	E&#123;i&lt;10?&#125;--Y--&gt;F(检验);</span><br><span class="line">	F(检验)--&gt;H(j=j+1);</span><br><span class="line">	H(j=j+1)--&gt;C;</span><br><span class="line">	E&#123;i&lt;10?&#125;--N--&gt;J(i=i+1);</span><br><span class="line">	J(i=i+1)--&gt;C;</span><br><span class="line">	C&#123;i&lt;10?&#125;--oEND[结束];</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">> flowchart TB;
+    A(开始)-->B(i=0);
+    B(i=0)-->C{i<10?};
+    C{i<10?}--Y-->D(j=0);
+    D(j=0)-->E{i<10?};
+    E{i<10?}--Y-->F(检验);
+    F(检验)-->H(j=j+1);
+    H(j=j+1)-->C;
+    E{i<10?}--N-->J(i=i+1);
+    J(i=i+1)-->C;
+    C{i<10?}--oEND[结束];
+</pre>
 
 
 </blockquote>

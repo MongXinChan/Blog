@@ -230,7 +230,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            6.7k 词 
+            1.5k 词 
           </div>
         </div>
         
@@ -260,14 +260,37 @@
 
 <p>我们发现通过结构体<code>struct</code>很容易就把我们想要的东西都包含在内，我们在这里再引入跟<strong>车钩或者牵引杆</strong>相似的功能，我们把我们存放数据源信息的域称为<strong>数据域</strong>，把存储直接后继位置的域称为<strong>指针域</strong>。指针域中存储的信息称为<strong>指针</strong>或<strong>链</strong>。这两部分信息组成数据元素$a_i$的存储映像，称为**结点(Node)**。</p>
 <h3 id="节点-Node"><a href="#节点-Node" class="headerlink" title="节点(Node)"></a>节点(Node)</h3><p>我们把n个结点的链结成一个链表，即为线性表($a_1,a_2,a_3$…$,a_n$)的链式存储结构，因为此链表的每个结点中<strong>只包含一个指针域</strong>，也称作<strong>单链表</strong>。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">class Pre</span><br><span class="line">Next &lt;|-- Pre</span><br><span class="line">Next: Data</span><br><span class="line">Next: Pointer()</span><br><span class="line">Pre:Data</span><br><span class="line">Pre:Pointer(Next)</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">classDiagram
+class Pre
+Next <|-- Pre
+Next: Data
+Next: Pointer()
+Pre:Data
+Pre:Pointer(Next)</pre>
 
 <p>同样的，每个节点中包含<strong>两个指针域</strong>的，称作**双向链表(指向前一个指针，又指向后一个指针)**。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">Next &lt;|--|&gt;Cur</span><br><span class="line">Cur&lt;|--|&gt;Preev</span><br><span class="line">Next: Data</span><br><span class="line">Next: Pointer()</span><br><span class="line">Cur:Data</span><br><span class="line">Cur:Pointer(Next,Preev)</span><br><span class="line">Preev:Data</span><br><span class="line">Preev:Pointer(Cur)</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">    classDiagram
+    Next <|--|>Cur
+    Cur<|--|>Preev
+    Next: Data
+    Next: Pointer()
+    Cur:Data
+    Cur:Pointer(Next,Preev)
+    Preev:Data
+    Preev:Pointer(Cur)</pre>
 
 <p>对于线性表来说，总得有个首尾，链表也不例外。我们把<strong>链表第一个结点的存储位置叫做头指针</strong>，***<u>那么整个链表的存取就必须是从头指针开始进行了</u>***（这里很重要，后面还会引入”循环链表”）。之后的每一个结点，其实就是上一个的后继指针指向的位置。不难想象到，最后一个结点它的指针指向的一定是<code>Null</code>，空指针。</p>
 <p>有时候，我们为了方便对链表的观察，我们会<strong>在单链表的第一个结点前设立一个结点，称为头结点</strong>。头结点的数据域可以不存储任何信息，我们也可以存储一些关于这个链表的相关信息~</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">class Pre</span><br><span class="line">Pre &lt;|-- Node</span><br><span class="line">Node: Pointer()</span><br><span class="line">Node: Data[OR NOT]</span><br><span class="line">Next &lt;|-- Pre</span><br><span class="line">Next: Data</span><br><span class="line">Next: Pointer()</span><br><span class="line">Pre:Data</span><br><span class="line">Pre:Pointer(Next)</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">classDiagram
+class Pre
+Pre <|-- Node
+Node: Pointer()
+Node: Data[OR NOT]
+Next <|-- Pre
+Next: Data
+Next: Pointer()
+Pre:Data
+Pre:Pointer(Next)</pre>
 
 <h3 id="概念区分"><a href="#概念区分" class="headerlink" title="概念区分"></a>概念区分</h3><h4 id="头指针"><a href="#头指针" class="headerlink" title="头指针"></a>头指针</h4><ul>
 <li>头指针是链表指向第一个结点的指针，若链表又头结点，则是指向头结点的指针</li>
@@ -293,16 +316,47 @@
 
 <p>由于链表的特性是我们不知道它有多长，而因此利用<code>p=p-&gt;next</code>这一<strong>”工作指针后移“</strong>，这其实也是很多算法的常用技术。</p>
 <h2 id="单链表的插入与删除"><a href="#单链表的插入与删除" class="headerlink" title="单链表的插入与删除"></a>单链表的插入与删除</h2><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>不妨这样思考这个问题，我们要实现链表的插入，，只需要绕过<code>a-&gt;next</code>和<code>p-&gt;next</code>的指针做一点小改变就可以*(<strong>alert</strong>)*.</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">class Pre</span><br><span class="line">Pre &lt;|-- Node</span><br><span class="line">Next &lt;-- Pre</span><br><span class="line">PExample &lt;.. Node</span><br><span class="line">Pre &lt;.. PExample</span><br><span class="line">Node: Pointer()</span><br><span class="line">Node: Data[OR NOT]</span><br><span class="line">PExample: Pointer()</span><br><span class="line">PExample: Data</span><br><span class="line">Next: Data</span><br><span class="line">Next: Pointer()</span><br><span class="line">Pre:Data</span><br><span class="line">Pre:Pointer(Next)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="mermaid">classDiagram
+class Pre
+Pre <|-- Node
+Next <-- Pre
+PExample <.. Node
+Pre <.. PExample
+Node: Pointer()
+Node: Data[OR NOT]
+PExample: Pointer()
+PExample: Data
+Next: Data
+Next: Pointer()
+Pre:Data
+Pre:Pointer(Next)</pre>
 
 <p>我们可以注意到，<strong>空箭头指向的是原本要指向的内容</strong>，而虚<strong>线箭头指向的是修改后的链表</strong>，也就是我们要修改Node中的Pointer，以及PExample中的Pointer()；</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">PExample-&gt;Pointer=Pre-&gt;Pointer;</span><br><span class="line">Pre-Pointer=PExample;</span><br></pre></td></tr></table></figure>
 
 <p>相似的，对于单链表的表头和表尾的特殊情况，操作是相同的：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">class NodeHead</span><br><span class="line">NodeHead--&gt; Node</span><br><span class="line">NodeHead..&gt; Pre</span><br><span class="line">Pre..&gt;Node</span><br><span class="line"></span><br><span class="line">NodeHead:Pointer()</span><br><span class="line">NodeHead:Data</span><br><span class="line"></span><br><span class="line">Pre:Pointer()</span><br><span class="line">Pre:Data</span><br><span class="line"></span><br><span class="line">Node:Pointer()</span><br><span class="line">Node:Data</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="mermaid">classDiagram
+class NodeHead
+NodeHead--> Node
+NodeHead..> Pre
+Pre..>Node
+
+NodeHead:Pointer()
+NodeHead:Data
+
+Pre:Pointer()
+Pre:Data
+
+Node:Pointer()
+Node:Data</pre>
 
 <p>而单链表的表尾添加方法是如下：把表尾的空指针指向下一个数据的地址。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">NodeTail..&gt; Node</span><br><span class="line">NodeTail:Data()</span><br><span class="line">NodeTail:Pointer</span><br><span class="line">Node:^</span><br><span class="line">Node:Data()</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">classDiagram
+NodeTail..> Node
+NodeTail:Data()
+NodeTail:Pointer
+Node:^
+Node:Data()</pre>
 
 <p>单链表第$i$个数据插入结点的算法思路：</p>
 <ol>
@@ -317,7 +371,20 @@
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Status <span class="title">ListInsert</span><span class="params">(LinkList *L,<span class="type">int</span> i,ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    LinkList p,s;</span><br><span class="line">    p=*L;</span><br><span class="line">    j=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(p&amp;&amp;j&lt;i)&#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;<span class="comment">//用++j实际上会更快一点</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(!p||j&gt;i)</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    s=(LinkList*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(Node));</span><br><span class="line">    s-&gt;data=e;</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next=s;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>我们通过将其的前继结点的指针绕过，指向它的后继结点即可。</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">class Pre</span><br><span class="line">Pre &lt;|.. Node</span><br><span class="line">Next &lt;|-- Pre</span><br><span class="line">PExample &lt;-- Node</span><br><span class="line">Pre &lt;-- PExample</span><br><span class="line">Node: Pointer()</span><br><span class="line">Node: Data[OR NOT]</span><br><span class="line">PExample: Pointer()</span><br><span class="line">PExample: Data</span><br><span class="line">Next: Data</span><br><span class="line">Next: Pointer()</span><br><span class="line">Pre:Data</span><br><span class="line">Pre:Pointer()</span><br></pre></td></tr></table></figure>
+<pre class="mermaid">classDiagram
+class Pre
+Pre <|.. Node
+Next <|-- Pre
+PExample <-- Node
+Pre <-- PExample
+Node: Pointer()
+Node: Data[OR NOT]
+PExample: Pointer()
+PExample: Data
+Next: Data
+Next: Pointer()
+Pre:Data
+Pre:Pointer()</pre>
 
 <p>也就是</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">PExample=Node-&gt;next;</span><br><span class="line">Node-&gt;Pointer=PExample-&gt;Pointer;</span><br></pre></td></tr></table></figure>
@@ -352,7 +419,20 @@
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">CreateListHead</span><span class="params">(LinkList *L,<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    LinkList p;</span><br><span class="line">    <span class="type">int</span> account;</span><br><span class="line">    <span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="number">0</span>));</span><br><span class="line">    *L=(LinkList)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(Node));</span><br><span class="line">    (*L)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        p=(LinkList)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(Node));</span><br><span class="line">        p-&gt;data=<span class="built_in">rand</span>()%<span class="number">100</span><span class="number">+1</span>;</span><br><span class="line">        p-&gt;next=(*L)-&gt;next;</span><br><span class="line">        (*L)-&gt;next=p;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这实际上就是始终让新节点在第一的位置。我们也可以称之为<strong>头插法</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">class Pre</span><br><span class="line">Pre &lt;|-- Node</span><br><span class="line">Next &lt;-- Pre</span><br><span class="line">PExample &lt;.. Node</span><br><span class="line">Pre &lt;.. PExample</span><br><span class="line">Node: Pointer()</span><br><span class="line">Node: Data[OR NOT]</span><br><span class="line">PExample: Pointer()</span><br><span class="line">PExample: Data</span><br><span class="line">Next: Data</span><br><span class="line">Next: Pointer()</span><br><span class="line">Pre:Data</span><br><span class="line">Pre:Pointer(Next)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<pre class="mermaid">classDiagram
+class Pre
+Pre <|-- Node
+Next <-- Pre
+PExample <.. Node
+Pre <.. PExample
+Node: Pointer()
+Node: Data[OR NOT]
+PExample: Pointer()
+PExample: Data
+Next: Data
+Next: Pointer()
+Pre:Data
+Pre:Pointer(Next)</pre>
 
 <p>自然我们也有<strong>尾插法</strong>:</p>
 <figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">CreateListHead</span><span class="params">(LinkList *L,<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    LinkList p,r;</span><br><span class="line">    <span class="type">int</span> i;</span><br><span class="line">    <span class="built_in">srand</span>(<span class="built_in">time</span>(<span class="number">0</span>));</span><br><span class="line">    *L=(LinkList)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(Node));</span><br><span class="line">    r=*L;			<span class="comment">//r为指向尾部的结点</span></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">        p=(Node*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(Node));</span><br><span class="line">        p-&gt;data=<span class="built_in">rand</span>()%<span class="number">100</span><span class="number">+1</span>;</span><br><span class="line">        r-&gt;next=p;			<span class="comment">//将表尾终端的结点的指针指向新结点</span></span><br><span class="line">        r=p;				<span class="comment">//将当前新结点定义为表尾端结点</span></span><br><span class="line">    &#125;</span><br><span class="line">    r-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
