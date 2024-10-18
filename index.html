@@ -79,9 +79,13 @@
     
       <a class="main-nav-link" href="/archives">归档</a>
     
-      <a class="main-nav-link" href="/%5Bobject%20Object%5D">清单</a>
+      <a class="main-nav-link" href="/music">音乐</a>
     
-      <a class="main-nav-link" href="/linking/%20%7C%7C%20fas%20fa-linking">友链</a>
+      <a class="main-nav-link" href="/movie">电影</a>
+    
+      <a class="main-nav-link" href="/notes">随笔</a>
+    
+      <a class="main-nav-link" href="/linking">友链</a>
     
       <a class="main-nav-link" href="/about">关于</a>
     
@@ -108,9 +112,13 @@
     
       <a class="nav-dropdown-link" href="/archives">归档</a>
     
-      <a class="nav-dropdown-link" href="/%5Bobject%20Object%5D">清单</a>
+      <a class="nav-dropdown-link" href="/music">音乐</a>
     
-      <a class="nav-dropdown-link" href="/linking/%20%7C%7C%20fas%20fa-linking">友链</a>
+      <a class="nav-dropdown-link" href="/movie">电影</a>
+    
+      <a class="nav-dropdown-link" href="/notes">随笔</a>
+    
+      <a class="nav-dropdown-link" href="/linking">友链</a>
     
       <a class="nav-dropdown-link" href="/about">关于</a>
     
@@ -312,7 +320,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            9.3k 词 
+            9.4k 词 
           </div>
         </div>
         
@@ -391,7 +399,7 @@ C++是以C为基础的，所以要用C++编程时候，就必须要熟悉C的语
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            7.9k 词 
+            8.3k 词 
           </div>
         </div>
         
@@ -554,7 +562,7 @@ C++是以C为基础的，所以要用C++编程时候，就必须要熟悉C的语
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            7.1k 词 
+            7.3k 词 
           </div>
         </div>
         
@@ -715,7 +723,7 @@ C++是以C为基础的，所以要用C++编程时候，就必须要熟悉C的语
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            52k 词 
+            55k 词 
           </div>
         </div>
         
@@ -731,24 +739,7 @@ C++是以C为基础的，所以要用C++编程时候，就必须要熟悉C的语
 In short, that’s the way it’s specified in the IEEE-754 standard, which is what Java’s or C++’s&#x2F;C’s Floating-Point Operations are based on.(Except for python.)
 Division by zero: an operation on finite operands gives an exact infinite result, e.g., 1&#x2F;0 or log(0). By default, returns ±infinity.
 
-C++using namespace std;/*这个其实是帮你定义了一些东西但是如果你不清楚他定义了些什么东西using之后就可能出奇怪的bug就好像你非要给cout赋值编译器就脑子卡住*/
-
-
-
-选择结构
-
-
-运算符
-运算优先级
-
-
-
-算术运算符
-高
-
-
-关系运算符
-中...
+C++12345678using namespace std;/*这个其实是帮你定义了一些东西但是如果你不清楚他定义了些什么东西using之后就可能出奇怪的bug就好像你非要给cout赋值编译器就脑子卡住using namespace std;/*这个其实是帮你定义了一些东...
             
           </div>
         
@@ -809,7 +800,7 @@ C++using namespace std;/*这个其实是帮你定义了一些东西但是如果�
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            4.6k 词 
+            4.7k 词 
           </div>
         </div>
         
@@ -825,7 +816,7 @@ C++using namespace std;/*这个其实是帮你定义了一些东西但是如果�
 
 我们认为，一个代码要具有简洁性，并且可维护性高，显而易见100段行功能相似的代码段，如果出错要逐行更改困难；    我们注意到，实际上#include&lt;stdio.h&gt;和#include&lt;iostream&gt;本质上就是封装了许许多多代码段综合而成的，编译后产生的是许多行stdio.h和iostream所包含的代码；    而我们将这种使用一个“压缩包”把许多段代码段封装的“压缩包”称为函数，而#include&lt;&gt;是函数的一种，我们称之为库函数。@TOC
 e.g.1向数组$a[5]$输入五个数字，并乘以k倍，打印之前与之后的数组。分析：可以看到打印数组$a[5]$前后都是要操作的，这是重复的，我们如果采用两次
-for(int i=0;i&lt;5;i++)&#123;	printf(&quot;%d&quot...
+123for(int i=0;i&lt;5;i++)&#123;	printf(for(int i=...
             
           </div>
         
@@ -886,7 +877,7 @@ for(int i=0;i&lt;5;i++)&#123;	printf(&quot;%d&quot...
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            708 词 
+            721 词 
           </div>
         </div>
         
@@ -900,9 +891,9 @@ for(int i=0;i&lt;5;i++)&#123;	printf(&quot;%d&quot...
               前言我们学习了这两种线性结构，但我们会发现这在解决形如12个月问题，一周7天的链表表示中还并不能很完美展现，这就需要我们在本章来定义一个静态链表，双向链表以及循环链表。
 回眸数组——静态链表回顾数组，我们发现，素组的元素都是由两个数据域组成的，data和cur。也就是说，数组的每个下标都对应一个data和一个cur。数据域data，用来存放数据元素，也就是通常我们要处理的数据：而cur相当于单链表种的next指针，存放该元素的后继在数组种的下标，我们把cur叫做游标。
 我们把这种数组描述的链表叫做静态链表。
-#define MAXSIZE 1000typedef struct&#123;    ElemType data;    int cur;&#125;Component,SaticLinkList[MAXSIZE];
+123456#define MAXSIZE 1000typedef struct&#123;    ElemType data;    #define MAXSIZE 1000typedef struct&#123;    ElemType data;    int cur;&#125;Component,SaticLinkList[MAXSIZE];
 
-另外我们对数组第一个和最后一个元素作为特殊元素处理，不存数据。我们通常把未被使用的数组元素称为备用链表。而数组第一个元素，即下标为0的元素的cur就存放备用链表的第一个结点的下标；而数组的最后一个元素的cur则存放第一个由数值的元素的下标，相当于单链表中的头...
+另外我们对数组第一个和最后一个元素作为特殊元素处理，不存数据。我们通常把未被使用的数组元素称为备用链表。而数组第一个元素，...
             
           </div>
         
