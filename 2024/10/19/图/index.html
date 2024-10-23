@@ -14,22 +14,24 @@
   
 
   
-  <title>Music | MongXin&#39;s Blog</title>
+  <title>数据结构与算法——第n讲：图 | MongXin&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
   <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
-  <meta name="description" content="主要收录一些喜欢的歌曲:">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Music">
-<meta property="og:url" content="http://example.com/music/index.html">
+  <meta name="description" content="图邻接表123456789101112131415161718typedef char VertexType;typedef int EdgeType;typedef struct EdgeNode&#123;    int adjvex;    EdgeType info;    struct EdgeNode *next;&#125;EdgeNode;typedef struct Vertex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法——第n讲：图">
+<meta property="og:url" content="http://example.com/2024/10/19/%E5%9B%BE/index.html">
 <meta property="og:site_name" content="MongXin&#39;s Blog">
-<meta property="og:description" content="主要收录一些喜欢的歌曲:">
+<meta property="og:description" content="图邻接表123456789101112131415161718typedef char VertexType;typedef int EdgeType;typedef struct EdgeNode&#123;    int adjvex;    EdgeType info;    struct EdgeNode *next;&#125;EdgeNode;typedef struct Vertex">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-09-10T02:07:26.000Z">
-<meta property="article:modified_time" content="2024-10-18T09:33:15.050Z">
+<meta property="article:published_time" content="2024-10-19T08:30:26.153Z">
+<meta property="article:modified_time" content="2024-10-22T09:54:48.790Z">
 <meta property="article:author" content="MongXin">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="MongXin's Blog" type="application/atom+xml">
@@ -210,7 +212,9 @@
        
 
 
-<article id="page-" class="h-entry article article-type-page" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+<article id="post-图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
    
   <div class="article-inner">
     <div class="article-main">
@@ -221,7 +225,7 @@
   
     
       <h1 class="p-name article-title" itemprop="headline name">
-        Music
+        数据结构与算法——第n讲：图
       </h1>
     
   
@@ -229,25 +233,36 @@
 
         <div class='meta-info-bar'>
           <div class="meta-info">
-  <time class="dt-published" datetime="2024-09-10T02:07:26.000Z" itemprop="datePublished">2024-09-10</time>
+  <time class="dt-published" datetime="2024-10-19T08:30:26.153Z" itemprop="datePublished">2024-10-19</time>
 </div>
           <div class="need-seperator meta-info">
             <div class="meta-cate-flex">
   
-    未分类 
+  <a class="meta-cate-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
    
 </div>
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            12 词 
+            1.2k 词 
           </div>
         </div>
         
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
       </header>
       <div class="e-content article-entry" itemprop="articleBody">
         
-          <p>主要收录一些喜欢的歌曲:</p>
+          <h1 id="图"><a href="#图" class="headerlink" title="图"></a>图</h1><h2 id="邻接表"><a href="#邻接表" class="headerlink" title="邻接表"></a>邻接表</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="type">char</span> VertexType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> EdgeType;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">EdgeNode</span>&#123;</span><br><span class="line">    <span class="type">int</span> adjvex;</span><br><span class="line">    EdgeType info;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">EdgeNode</span> *next;</span><br><span class="line">&#125;EdgeNode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">VertexNode</span>&#123;</span><br><span class="line">    VertexType data;</span><br><span class="line">    EdgeNode *firstedge;</span><br><span class="line">&#125;VertexNode,AdjList[MAXVEX];</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</span><br><span class="line">    Adjlist adjList;</span><br><span class="line">    <span class="type">int</span> numNodes,numEdges;</span><br><span class="line">&#125;GraphAdjList;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 建立图的邻接表 */</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">CreateALGraph</span><span class="params">(GraphAdjList *G)</span></span>&#123;</span><br><span class="line">    EdgeNode *e;</span><br><span class="line">    std::cout&lt;&lt;<span class="string">&quot;输入顶点数和边数&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">    std::cin&gt;&gt;&amp;G-&gt;numNodes&gt;&gt;&amp;G-&gt;numEdges;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;G-&gt;numNodes;i++)&#123;</span><br><span class="line">        std::cin&gt;&gt;&amp;G-&gt;adjList[i].data;</span><br><span class="line">        G-&gt;adjList[i].firstedge=<span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> k=<span class="number">0</span>;k&lt;G-&gt;numEdges;k++)&#123;</span><br><span class="line">        std::cout&lt;&lt;<span class="string">&quot;输入边(vi,vj)上的顶点序号&quot;</span>;</span><br><span class="line">        std::cin&gt;&gt;i&gt;&gt;j;</span><br><span class="line">        e=(EdgeNode*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(EdgeNode));	<span class="comment">/*向内存申请空间，并且生成边表结点*/</span></span><br><span class="line">        e-&gt;adjvex=j;							<span class="comment">/*邻接序号为j*/</span></span><br><span class="line">        e-&gt;next=G-&gt;adjList[i].firstedge;		<span class="comment">/*将e的指针指向当前顶点指向的结点*/</span></span><br><span class="line">        G-&gt;adjList[i].firstedge=e;				<span class="comment">/*将当前顶点的指针指向e*/</span></span><br><span class="line">        e=(EdgeNode*)<span class="built_in">malloc</span>(<span class="built_in">sizeof</span>(EdgeNode));	<span class="comment">/*向内存申请空间，生成边表结点*/</span></span><br><span class="line">        e-&gt;adjvex=i;							<span class="comment">/*邻接序号为i*/</span></span><br><span class="line">        e-&gt;next=G-&gt;adjList[j].firstedge;		<span class="comment">/*将e的指针指向当前顶点指向的终点*/</span></span><br><span class="line">        G-&gt;adjList[j].firstedge=e;				<span class="comment">/*佳能当前顶点的指针指向e*/</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
 
         
       </div>
@@ -259,6 +274,34 @@
   </div>
   
     
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2024/10/19/Javascript/"
+      title="[前端]JavaScript"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        [前端]JavaScript
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/09/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E7%BA%BF%E6%80%A7%E8%A1%A8%E3%80%90%E9%9D%99%E6%80%81%E9%93%BE%E8%A1%A8%E4%BB%A5%E5%8F%8A%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E3%80%91/"
+      title="数据结构与算法——第四讲：静态链表及双向链表"
+     >
+
+    <p class="title-text">
+      
+        数据结构与算法——第四讲：静态链表及双向链表
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
 
   
 </article>

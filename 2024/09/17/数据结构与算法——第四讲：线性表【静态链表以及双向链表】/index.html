@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>数据结构与算法——第四讲：静态链表及双向链表 | MongXin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="前言**C&#x2F;Cpp系列具有&#x3D;&#x3D;指针&#x3D;&#x3D;，使他可以非常容易地操作内存中的地址和数据**，虽然如Java，C#等不使用指针，但启用了对象引用机制，某种程度上来说也间接实现了指针的某些作用。但对于一些基层的语言，如更早期的Basic、Fortran等早期高级语言，没有指针的概念，链表如果按照我们之前的说法并没有办法实现。 这就是我们接下来三分之一的篇章—">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构与算法——第四讲：静态链表及双向链表">
+<meta property="og:url" content="http://example.com/2024/09/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E5%9B%9B%E8%AE%B2%EF%BC%9A%E7%BA%BF%E6%80%A7%E8%A1%A8%E3%80%90%E9%9D%99%E6%80%81%E9%93%BE%E8%A1%A8%E4%BB%A5%E5%8F%8A%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8%E3%80%91/index.html">
+<meta property="og:site_name" content="MongXin&#39;s Blog">
+<meta property="og:description" content="前言**C&#x2F;Cpp系列具有&#x3D;&#x3D;指针&#x3D;&#x3D;，使他可以非常容易地操作内存中的地址和数据**，虽然如Java，C#等不使用指针，但启用了对象引用机制，某种程度上来说也间接实现了指针的某些作用。但对于一些基层的语言，如更早期的Basic、Fortran等早期高级语言，没有指针的概念，链表如果按照我们之前的说法并没有办法实现。 这就是我们接下来三分之一的篇章—">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2024-10-23T08:44:54.955Z">
+<meta property="article:author" content="MongXin">
+<meta property="article:tag" content="数据结构">
+<meta property="article:tag" content="算法">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="MongXin's Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+    <link rel="stylesheet" href="blog\node_modules\Typro-theme-YuanShan-master\assets\yuan-shan.css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/images/Banner.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>MongXin's Blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">首页</a>
+    
+      <a class="main-nav-link" href="/archives">归档</a>
+    
+      <a class="main-nav-link" href="/music">音乐</a>
+    
+      <a class="main-nav-link" href="/movie">电影</a>
+    
+      <a class="main-nav-link" href="/notes">随笔</a>
+    
+      <a class="main-nav-link" href="/linking">友链</a>
+    
+      <a class="main-nav-link" href="/about">关于</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">首页</a>
+    
+      <a class="nav-dropdown-link" href="/archives">归档</a>
+    
+      <a class="nav-dropdown-link" href="/music">音乐</a>
+    
+      <a class="nav-dropdown-link" href="/movie">电影</a>
+    
+      <a class="nav-dropdown-link" href="/notes">随笔</a>
+    
+      <a class="nav-dropdown-link" href="/linking">友链</a>
+    
+      <a class="nav-dropdown-link" href="/about">关于</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/%5Bobject%20Object%5D></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Mongxin Chan </div>
+      <div class="dot"></div>
+      <div class="subtitle">这里就是罗德岛，要跳就在这里跳 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://steamcommunity.com/id/MongXin_Chan" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/MongXinChan" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/%E8%AF%AD%E6%B3%95/">
+                语法
+                <div class="category-count">5</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                数据结构
+                <div class="category-count">5</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%AB%9E%E8%B5%9B/">
+                竞赛
+                <div class="category-count">1</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6/" rel="tag">信息学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-数据结构与算法——第四讲：线性表【静态链表以及双向链表】" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        数据结构与算法——第四讲：静态链表及双向链表
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-09-16T16:00:00.000Z" itemprop="datePublished">2024-09-17</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            3.6k 词 
+          </div>
+        </div>
+        
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>**<u>C&#x2F;Cpp系列具有&#x3D;&#x3D;指针&#x3D;&#x3D;，使他可以非常容易地操作内存中的地址和数据</u>**，虽然如Java，C#等不使用指针，但启用了对象引用机制，某种程度上来说也间接实现了指针的某些作用。但对于一些基层的语言，如更早期的Basic、Fortran等早期高级语言，没有指针的概念，链表如果按照我们之前的说法并没有办法实现。</p>
+<p>这就是我们接下来三分之一的篇章——静态链表。<strong>它解决了在没有指针存在的情况下对静态链表的实现</strong>，为什么叫静态？因为其大小是固定的，跟我们最开始定义数组的情况一样，我们一定是<code>int a[100];</code>这样来定义int[100]类型数组名为a的数组，<strong>他比较死板，不能灵活扩容，也不能灵活减容，故而称之为静态</strong>。</p>
+<p>在此之前，我们学习了这两种线性结构，但我们会发现这在解决形如12个月问题，一周7天的链表表示中还并不能很完美展现，这就需要我们在本章另外的篇章，来引入双向链表以及循环链表。</p>
+<p>双向链表允许我们在链表中向前和向后遍历，这在某些情况下非常有用。循环链表则是一种特殊的链表，它的最后一个节点指向链表的第一个节点，形成一个循环。这两种链表结构都可以更好地解决一些特定的问题，并且在实际编程中有着广泛的应用。</p>
+<h2 id="回眸数组——静态链表"><a href="#回眸数组——静态链表" class="headerlink" title="回眸数组——静态链表"></a>回眸数组——静态链表</h2><p>回顾数组，我们发现，数组的元素都是由两个数据域组成的，data和cur。也就是说，数组的每个下标都对应一个data和一个cur。数据域data，用来存放数据元素，也就是通常我们要处理的数据：而cur相当于单链表种的next指针，存放该元素的后继在数组中的<strong>下标</strong>，我们把cur叫做<strong>游标</strong>。</p>
+<p>我们把这种数组描述的链表叫做静态链表。静态链表是比较死板的，雷打不动，说自己有多少他就只有多少，多了数据会溢出，空间用少了他的空闲空间又会闲置，导致占用过多的内存空间（内存管理在C&#x2F;Cpp中是比较重要的，特别是Cpp，为了及时释放空间在类中引入了”析构”的概念），这是我们无法避免的事情。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 1000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="type">int</span> cur;</span><br><span class="line">&#125;Component,SaticLinkList[MAXSIZE];</span><br></pre></td></tr></table></figure>
+
+<p>另外我们对数组第一个和最后一个元素作为特殊元素处理，不存数据。我们通常把未被使用的数组元素称为备用链表。而数组第一个元素，即下标为0的元素的cur就存放备用链表的第一个结点的下标；而数组的最后一个元素的cur则存放第一个由数值的元素的下标，相当于单链表中的头结点作用，<strong>当整个链表为空时，其cur数值则为0。</strong></p>
+<h3 id="静态链表的初始化"><a href="#静态链表的初始化" class="headerlink" title="静态链表的初始化"></a>静态链表的初始化</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">InitList</span><span class="params">(StaticLinkList space)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;MAXSIZE<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        space[i].cur=i<span class="number">+1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    space[MAXSIZE<span class="number">-1</span>].cur=<span class="number">0</span>;<span class="comment">//目前静态链表为空，最后一个元素的cur为0</span></span><br><span class="line">    <span class="keyword">return</span> OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center"><strong>下标</strong></th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">4</th>
+<th align="center">5</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>Data</strong></td>
+<td align="center">&#x3D;&#x3D;<strong>头结点</strong>&#x3D;&#x3D;</td>
+<td align="center">A</td>
+<td align="center">B</td>
+<td align="center">C</td>
+<td align="center">D</td>
+<td align="center">E</td>
+</tr>
+<tr>
+<td align="center"><strong>cur</strong></td>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>我们可以发现，<u>&#x3D;&#x3D;除了头结点的cur指向的是5外&#x3D;&#x3D;</u>，其他的指针域都是<strong>从2再到5依次递增</strong>，此时”A”这里的&#x3D;&#x3D;cur&#x3D;&#x3D;存有下一元素”B”的&#x3D;&#x3D;下标**<u>1</u><strong>&#x3D;&#x3D;，”B”的&#x3D;&#x3D;cur&#x3D;&#x3D;存有下一元素”C”的&#x3D;&#x3D;下标</strong><u>2</u>**&#x3D;&#x3D;，……，直到”E”的cur存储的数值是0，意思是指向数组下标为0的数值，而我们会发现其指向的就是头结点，而第一个元素因空闲空间的第一个元素下标为5，所以它的cur存有5。</p>
+<h3 id="静态链表的插入操作"><a href="#静态链表的插入操作" class="headerlink" title="静态链表的插入操作"></a>静态链表的插入操作</h3><p>既然我们有静态链表的定义，我们对数据的增删改查也应运而生，我们该如何将某些元素&#x2F;数据插入到其中？</p>
+<p>在动态链表中，我们对节点的申请和释放分别使用<code>malloc()</code>,<code>free()</code>两个函数来实现，可我们要操作的是一个数组，我们应该如何处理这种迥异？<strong>既然没有条件，我们就创造条件</strong>，我们要把类似于这两个函数给模拟出来，才可以做到插入以及删除操作。</p>
+<p>这时候我们就要分析，哪个分量是被使用的，哪些个并没有被使用？解决方法是通过将**&#x3D;&#x3D;所有未被使用过的以及被删除的分量&#x3D;&#x3D;<strong>用游标链成一个</strong>备用**的链表，每当进行插入的时候，可以从备用链表取得第一个结点作为待插入的新结点。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*链表若为空，则返回0，反之返回分配的结点下标*/</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">Malloc_SLL</span><span class="params">(StaticLinkList space)</span></span>&#123;			<span class="comment">//实际上这个东西就是一个数组的类型</span></span><br><span class="line">    <span class="type">int</span> i=space[<span class="number">0</span>].cur;							<span class="comment">//根据定义，这里存储的是目前拥有的元素个数</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span>(space[<span class="number">0</span>].cur)&#123;</span><br><span class="line">        space[<span class="number">0</span>].cur=space[i].cur;				<span class="comment">//判断是否为0，非零就将sapce[0]</span></span><br><span class="line">    &#125;											<span class="comment">//的cur赋值为space[i].cur,</span></span><br><span class="line">    											<span class="comment">//把这个数值当作下一个分量的&quot;备胎&quot;</span></span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那我们到底如何去插入一个数值？</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>下标</strong></th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">&#x3D;&#x3D;4&#x3D;&#x3D;</th>
+<th align="center">5</th>
+<th align="center">6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>Data</strong></td>
+<td align="center">&#x3D;&#x3D;<strong>头结点</strong>&#x3D;&#x3D;</td>
+<td align="center">A</td>
+<td align="center">B</td>
+<td align="center">C</td>
+<td align="center">D</td>
+<td align="center">E</td>
+<td align="center">NULL</td>
+</tr>
+<tr>
+<td align="center"><strong>cur</strong></td>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">&#x3D;&#x3D;4&#x3D;&#x3D;</td>
+<td align="center">5</td>
+<td align="center">&#x3D;&#x3D;6&#x3D;&#x3D;</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>注意到我们如果添加了一个元素”E”，告诉元素”C”说，我要排在你的后面，那不就是把各自的cur，但是对下家元素”D”一点都不理睬，<strong>因为插队本身就是这样子即荒诞又好笑，只要旁边的人同意了，也便不顾及其他人</strong>，这时候只要元素”C”给”E”，只需要”D”将cur更改成6，将”E”的下标的cur改成4，而”E”的也就完成了所谓的”插队”</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>下标</strong></th>
+<th align="center">0</th>
+<th align="center">1</th>
+<th align="center">2</th>
+<th align="center">3</th>
+<th align="center">&#x3D;&#x3D;4&#x3D;&#x3D;</th>
+<th align="center">5</th>
+<th align="center">6</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>Data</strong></td>
+<td align="center">&#x3D;&#x3D;<strong>头结点</strong>&#x3D;&#x3D;</td>
+<td align="center">A</td>
+<td align="center">B</td>
+<td align="center">C</td>
+<td align="center">D</td>
+<td align="center">E</td>
+<td align="center">NULL</td>
+</tr>
+<tr>
+<td align="center"><strong>cur</strong></td>
+<td align="center">5</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">&#x3D;&#x3D;6&#x3D;&#x3D;</td>
+<td align="center">5</td>
+<td align="center">&#x3D;&#x3D;4&#x3D;&#x3D;</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<p>以下是其实现代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">ListInsert</span><span class="params">(StaticLinkList L,<span class="type">int</span> i,ElemType e)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> j,k,l;</span><br><span class="line">    k=MAXSIZE<span class="number">-1</span>;					<span class="comment">//k首先是最后一个元素的下标</span></span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;<span class="built_in">LIstLength</span>(L)<span class="number">+1</span>)</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    j=<span class="built_in">Malloc_SLL</span>(L);				<span class="comment">//获得该静态链表空闲分量的下标</span></span><br><span class="line">    <span class="keyword">if</span>(j)&#123;</span><br><span class="line">        L[j].data=e;				<span class="comment">//将数据赋值给此份量的data</span></span><br><span class="line">        <span class="keyword">for</span>(l<span class="number">-1</span>;l&lt;=i<span class="number">-1</span>;l++)&#123;		<span class="comment">//找到第i元元素之前的位置</span></span><br><span class="line">            k=L[k].cur;</span><br><span class="line">        &#125;</span><br><span class="line">        L[j].cur=L[k].cur;			<span class="comment">//把第i个元素之前的cur赋值给新元素的cur</span></span><br><span class="line">        L[k].cur=j;					<span class="comment">//把新元素的下标赋值给第i个元素之前的cur</span></span><br><span class="line">        <span class="keyword">return</span> OK;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ERROR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="静态链表的删除操作"><a href="#静态链表的删除操作" class="headerlink" title="静态链表的删除操作"></a>静态链表的删除操作</h3><p>突然前面在最前面排队的人接了电话后应了几声，也就走了，看上去有急事，这部就意味着我们所有的元素会往前排1位，在静态链表中我们如何实现？</p>
+<p>同理，我们没有<code>malloc()</code>，定义了<code>Malloc()</code>，我们也没有<code>free()</code>，自然<code>Free()</code>也就是千呼万唤始出来的结果：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Free</span><span class="params">(StaticLinkList L,<span class="type">int</span> k)</span></span>&#123;</span><br><span class="line">    space[k].cur=space[<span class="number">0</span>].cur;				<span class="comment">//把第一个元素的cur赋值给要删除的分量cur</span></span><br><span class="line">    space[<span class="number">0</span>].cur=k;							<span class="comment">//把要删除的分量下标赋值给第一个元素的cur</span></span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">//当一个节点不再被使用时，将其标记为空闲，并将其插入到空闲链表的头部，以便后续可以被重新分配和使用。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">ListDelete</span><span class="params">(StaticLinkLIst L,<span class="type">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> j,k;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;<span class="built_in">ListLength</span>(L))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    k=MAXSIZE<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=i<span class="number">-1</span>;j++)&#123;</span><br><span class="line">        k=L[k].cur;</span><br><span class="line">    &#125;</span><br><span class="line">    j=L[k].cur;</span><br><span class="line">    L[k].cur=L[j].cur;</span><br><span class="line">    <span class="built_in">Free_SSL</span>(L,j);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="静态链表的优缺点"><a href="#静态链表的优缺点" class="headerlink" title="静态链表的优缺点"></a>静态链表的优缺点</h3><h2 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h2><h3 id="循环链表的定义"><a href="#循环链表的定义" class="headerlink" title="循环链表的定义"></a>循环链表的定义</h3><h2 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h2><h3 id="双向链表的定义"><a href="#双向链表的定义" class="headerlink" title="双向链表的定义"></a>双向链表的定义</h3><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="回眸链表"><a href="#回眸链表" class="headerlink" title="回眸链表"></a>回眸链表</h3>
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2024/10/19/%E5%9B%BE/"
+      title="数据结构与算法——第n讲：图"
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        数据结构与算法——第n讲：图
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/09/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%89%E8%AE%B2%EF%BC%9A%E7%BA%BF%E6%80%A7%E8%A1%A8%E3%80%90%E5%8D%95%E9%A1%B9%E9%93%BE%E8%A1%A8%E3%80%91/"
+      title="数据结构与算法——第三讲：单向链表"
+     >
+
+    <p class="title-text">
+      
+        数据结构与算法——第三讲：单向链表
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Mongxin Chan<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+
+</footer>
+
+
+  <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({startOnLoad: true});
+  </script>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
