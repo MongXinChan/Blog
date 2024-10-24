@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言**C&#x2F;Cpp系列具有&#x3D;&#x3D;指针&#x3D;&#x3D;，使他可以非常容易地操作内存中的地址和数据**，虽然如Java，C#等不使用指针，但启用了对象引用机制，某种程度上来说也间接实现了指针的某些作用。但对于一些基层的语言，如更早期的Basic、Fortran等早期高级语言，没有指针的概念，链表如果按照我们之前的说法并没有办法实现。 这就是我们接下来三分之一的篇章—">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-16T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-10-23T08:44:54.955Z">
+<meta property="article:modified_time" content="2024-10-24T09:33:57.740Z">
 <meta property="article:author" content="MongXin">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="算法">
@@ -244,7 +244,7 @@
   
           </div>
           <div class="wordcount need-seperator meta-info">
-            3.6k 词 
+            5.4k 词 
           </div>
         </div>
         
@@ -257,6 +257,7 @@
 <p>这就是我们接下来三分之一的篇章——静态链表。<strong>它解决了在没有指针存在的情况下对静态链表的实现</strong>，为什么叫静态？因为其大小是固定的，跟我们最开始定义数组的情况一样，我们一定是<code>int a[100];</code>这样来定义int[100]类型数组名为a的数组，<strong>他比较死板，不能灵活扩容，也不能灵活减容，故而称之为静态</strong>。</p>
 <p>在此之前，我们学习了这两种线性结构，但我们会发现这在解决形如12个月问题，一周7天的链表表示中还并不能很完美展现，这就需要我们在本章另外的篇章，来引入双向链表以及循环链表。</p>
 <p>双向链表允许我们在链表中向前和向后遍历，这在某些情况下非常有用。循环链表则是一种特殊的链表，它的最后一个节点指向链表的第一个节点，形成一个循环。这两种链表结构都可以更好地解决一些特定的问题，并且在实际编程中有着广泛的应用。</p>
+<p>[TOC]</p>
 <h2 id="回眸数组——静态链表"><a href="#回眸数组——静态链表" class="headerlink" title="回眸数组——静态链表"></a>回眸数组——静态链表</h2><p>回顾数组，我们发现，数组的元素都是由两个数据域组成的，data和cur。也就是说，数组的每个下标都对应一个data和一个cur。数据域data，用来存放数据元素，也就是通常我们要处理的数据：而cur相当于单链表种的next指针，存放该元素的后继在数组中的<strong>下标</strong>，我们把cur叫做<strong>游标</strong>。</p>
 <p>我们把这种数组描述的链表叫做静态链表。静态链表是比较死板的，雷打不动，说自己有多少他就只有多少，多了数据会溢出，空间用少了他的空闲空间又会闲置，导致占用过多的内存空间（内存管理在C&#x2F;Cpp中是比较重要的，特别是Cpp，为了及时释放空间在类中引入了”析构”的概念），这是我们无法避免的事情。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 1000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</span><br><span class="line">    ElemType data;</span><br><span class="line">    <span class="type">int</span> cur;</span><br><span class="line">&#125;Component,SaticLinkList[MAXSIZE];</span><br></pre></td></tr></table></figure>
@@ -296,6 +297,9 @@
 </tr>
 </tbody></table>
 <p>我们可以发现，<u>&#x3D;&#x3D;除了头结点的cur指向的是5外&#x3D;&#x3D;</u>，其他的指针域都是<strong>从2再到5依次递增</strong>，此时”A”这里的&#x3D;&#x3D;cur&#x3D;&#x3D;存有下一元素”B”的&#x3D;&#x3D;下标**<u>1</u><strong>&#x3D;&#x3D;，”B”的&#x3D;&#x3D;cur&#x3D;&#x3D;存有下一元素”C”的&#x3D;&#x3D;下标</strong><u>2</u>**&#x3D;&#x3D;，……，直到”E”的cur存储的数值是0，意思是指向数组下标为0的数值，而我们会发现其指向的就是头结点，而第一个元素因空闲空间的第一个元素下标为5，所以它的cur存有5。</p>
+<p>为了求这个静态链表中数据元素的个数，我们可以通过下列自定义的函数方法来确定：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*静态链表L已存在。其结果为返回L中数据元素的个数*/</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">ListLength</span><span class="params">(StaticLinkList L)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> i=L[MAXSIZE<span class="number">-1</span>].cur;</span><br><span class="line">    <span class="keyword">while</span>(i)&#123;</span><br><span class="line">        i=L[i].cur;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="静态链表的插入操作"><a href="#静态链表的插入操作" class="headerlink" title="静态链表的插入操作"></a>静态链表的插入操作</h3><p>既然我们有静态链表的定义，我们对数据的增删改查也应运而生，我们该如何将某些元素&#x2F;数据插入到其中？</p>
 <p>在动态链表中，我们对节点的申请和释放分别使用<code>malloc()</code>,<code>free()</code>两个函数来实现，可我们要操作的是一个数组，我们应该如何处理这种迥异？<strong>既然没有条件，我们就创造条件</strong>，我们要把类似于这两个函数给模拟出来，才可以做到插入以及删除操作。</p>
 <p>这时候我们就要分析，哪个分量是被使用的，哪些个并没有被使用？解决方法是通过将**&#x3D;&#x3D;所有未被使用过的以及被删除的分量&#x3D;&#x3D;<strong>用游标链成一个</strong>备用**的链表，每当进行插入的时候，可以从备用链表取得第一个结点作为待插入的新结点。</p>
@@ -378,13 +382,55 @@
 <p>同理，我们没有<code>malloc()</code>，定义了<code>Malloc()</code>，我们也没有<code>free()</code>，自然<code>Free()</code>也就是千呼万唤始出来的结果：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Free</span><span class="params">(StaticLinkList L,<span class="type">int</span> k)</span></span>&#123;</span><br><span class="line">    space[k].cur=space[<span class="number">0</span>].cur;				<span class="comment">//把第一个元素的cur赋值给要删除的分量cur</span></span><br><span class="line">    space[<span class="number">0</span>].cur=k;							<span class="comment">//把要删除的分量下标赋值给第一个元素的cur</span></span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">//当一个节点不再被使用时，将其标记为空闲，并将其插入到空闲链表的头部，以便后续可以被重新分配和使用。</span></span><br></pre></td></tr></table></figure>
 
-
-
+<p><code>Free()</code>函数的存在就是为了执行&#x3D;&#x3D;元素”A”要走，这个位置就空出来了，也就是未来来的人排在这，但是其序号并没有继承下去&#x3D;&#x3D;，这一方针。</p>
+<p>实际上更像我们排队点麻辣烫，麻辣香锅，有的人是酱香口味，有人是微辣口味，有人是麻辣口味…<del>（更多的我说不出来）</del>，<strong>虽然说你的酱香口味拿的牌子是<u>72</u><strong>，但是不妨碍</strong>微辣口味的同学在你前面点了</strong>，其**牌子虽然是<u>108</u>**（<del>我在玩72地煞36天罡的梗，希望有人理解看水浒传人士的精神状态</del>），但是他就是比你先点，理应也先做好，可以理解为，元素”A”<strong>走了</strong>，实际上是&#x3D;&#x3D;该同学(元素)拿到餐了，甚至说退出了&#x3D;&#x3D;。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Status <span class="title">ListDelete</span><span class="params">(StaticLinkLIst L,<span class="type">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> j,k;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>||i&gt;<span class="built_in">ListLength</span>(L))&#123;</span><br><span class="line">        <span class="keyword">return</span> ERROR;</span><br><span class="line">    &#125;</span><br><span class="line">    k=MAXSIZE<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(j=<span class="number">1</span>;j&lt;=i<span class="number">-1</span>;j++)&#123;</span><br><span class="line">        k=L[k].cur;</span><br><span class="line">    &#125;</span><br><span class="line">    j=L[k].cur;</span><br><span class="line">    L[k].cur=L[j].cur;</span><br><span class="line">    <span class="built_in">Free_SSL</span>(L,j);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="静态链表的优缺点"><a href="#静态链表的优缺点" class="headerlink" title="静态链表的优缺点"></a>静态链表的优缺点</h3><table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>在插入和删除操作时，只需要修改游标，不需要移动元素</td>
+<td>没有解决连续存储分配带来的表长难以确定的问题</td>
+</tr>
+<tr>
+<td>改进了在顺序存储结构中插入和删除操作需要移动大量元素的缺点</td>
+<td>失去了顺序存储结构随机存取的特性</td>
+</tr>
+</tbody></table>
+<p>值得反复提一嘴的是，静态链表是为了给没有指针的高级语言设计的一种实现单链表能力的方法，不到万不得已可以考虑用这种方法来写题目。</p>
+<h2 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h2><p>循环链表是一种特殊的链表，它的最后一个节点的指针指向链表的头节点，形成一个环形结构。这样，链表中的任何一个节点都可以作为起始节点，并且可以通过遍历回到起始节点。</p>
+<h3 id="循环链表的定义"><a href="#循环链表的定义" class="headerlink" title="循环链表的定义"></a>循环链表的定义</h3><p>循环链表的操作与普通链表类似，但需要注意的是，在进行插入和删除操作时，需要考虑循环的特性。例如，在插入节点时，需要确保新节点的指针正确地指向链表中的其他节点；在删除节点时，需要更新被删除节点的前一个节点的指针，使其指向被删除节点的下一个节点。</p>
+<pre class="mermaid">graph LR
+    a_1["a_1"] -- p --> a_2["a_2"]
+    a_2 -- p --> e[e]
+    e -- s --> a_3["a_3"]
+    a_3 -- s --> a_4["a_4"]
+    a_4 -- s --> a_5["a_5"]
+    a_5 -- s --> a_1</pre>
+
+<pre class="mermaid">graph LR
+    a_1["a_1"] -- p --> a_2["a_2"]
+    a_2 -- p --> a_4["a_4"]
+    a_4 -- s --> a_5["a_5"]
+    a_5 -- s --> a_1</pre>
 
 
-<h3 id="静态链表的优缺点"><a href="#静态链表的优缺点" class="headerlink" title="静态链表的优缺点"></a>静态链表的优缺点</h3><h2 id="循环链表"><a href="#循环链表" class="headerlink" title="循环链表"></a>循环链表</h2><h3 id="循环链表的定义"><a href="#循环链表的定义" class="headerlink" title="循环链表的定义"></a>循环链表的定义</h3><h2 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h2><h3 id="双向链表的定义"><a href="#双向链表的定义" class="headerlink" title="双向链表的定义"></a>双向链表的定义</h3><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="回眸链表"><a href="#回眸链表" class="headerlink" title="回眸链表"></a>回眸链表</h3>
+
+<p>循环链表在实际应用中非常有用，例如在<strong>操作系统</strong>中，<strong>进程调度通常使用循环链表来实现</strong>。此外，循环链表还可以用于实现<strong>循环队列</strong>、<strong>约瑟夫问题</strong>等。</p>
+<h2 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h2><p>双向链表是一种特殊的链表，<strong>它的每个节点都包含两个指针，一个指向前一个节点，另一个指向后一个节点。</strong>这样，链表中的每个节点都可以向前和向后遍历，从而提高了链表的操作效率。</p>
+<h3 id="双向链表的定义"><a href="#双向链表的定义" class="headerlink" title="双向链表的定义"></a>双向链表的定义</h3><p>双向链表的操作与普通链表类似，但需要注意的是，<strong>在进行插入和删除操作时，需要同时更新前一个节点和后一个节点的指针。</strong>例如，在插入节点时，需要确保新节点的前一个节点的后指针和后一个节点的前指针都正确地指向新节点；在删除节点时，需要更新被删除节点的前一个节点的后指针和后一个节点的前指针，使其指向彼此。</p>
+<p>双向链表在实际应用中非常有用，例如在浏览器的历史记录中，每个页面都可以通过双向链表来表示，用户可以方便地向前和向后浏览历史记录。此外，双向链表还可以用于实现<strong>LRU缓存</strong>、<strong>二叉搜索树</strong>等。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>循环链表和双向链表都是链表的特殊形式，它们分别通过循环和双向指针的方式提高了链表的操作效率和灵活性。在实际应用中，应根据具体需求选择合适的链表形式。</p>
+<h3 id="回眸链表"><a href="#回眸链表" class="headerlink" title="回眸链表"></a>回眸链表</h3><p>链表是一种非常重要的数据结构，它通过指针将多个节点连接在一起，形成一个线性的数据结构。链表的优点是可以动态地分配内存，并且插入和删除操作非常高效。然而，链表的缺点是访问特定位置的元素需要从头开始遍历，因此查找操作的效率较低。</p>
+<p>在实际应用中，链表通常用于实现栈、队列、哈希表等数据结构。此外，链表还可以用于实现文件系统、内存管理等操作系统中的重要功能。</p>
+<p>随着计算机技术的不断发展，链表的实现方式也在不断改进。例如，循环链表和双向链表的出现，使得链表的操作更加灵活和高效。未来，随着硬件和软件技术的进一步发展，链表可能会在更多的领域得到应用。</p>
+<p>关于下一篇，我们将讲述栈是如何实现的，以及我们如何用生活的例子来讲述栈。</p>
+
         
       </div>
 

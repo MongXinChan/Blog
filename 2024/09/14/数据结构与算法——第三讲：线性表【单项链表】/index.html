@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言上一节中我们学习了typedef、malloc,calloc和realloc关键字，以及对于结构体struct的应用，以及最重要的就是我们学习了什么是顺序表，以及顺序表如何实现，如何通过结构体来完成对顺序表的一个初步使用，但是，不得不提的一点是，我们会利用assert宣言来判断指针是否为空，以及对于一个简单的顺序表的一个完成，但是我们会发现，由于数据的增多，头删、头插都会因此而变得时间复杂度更">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-09-14T12:02:06.454Z">
-<meta property="article:modified_time" content="2024-10-22T10:01:09.637Z">
+<meta property="article:modified_time" content="2024-10-24T09:33:52.504Z">
 <meta property="article:author" content="MongXin">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="算法">
@@ -254,7 +254,7 @@
       <div class="e-content article-entry" itemprop="articleBody">
         
           <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>上一节中我们学习了<code>typedef</code>、<code>malloc</code>,<code>calloc</code>和<code>realloc</code>关键字，以及对于结构体<code>struct</code>的应用，以及最重要的就是我们学习了什么是顺序表，以及顺序表如何实现，如何通过结构体来完成对顺序表的一个初步使用，但是，不得不提的一点是，我们会利用<code>assert</code>宣言来判断指针是否为空，以及对于一个简单的顺序表的一个完成，但是我们会发现，由于数据的增多，头删、头插都会因此而变得时间复杂度更为乱，不恒定，这个时候我们就引如这一章的主题——链表。我们会发现链表的概念让顺序表的利用更为便捷，从而也方便了我们在后面对于栈以及队列的使用。</p>
-<p>@<a href="%E7%9B%AE%E5%BD%95">TOC</a></p>
+<p>[TOC]</p>
 <h2 id="顺序表的问题及其思考"><a href="#顺序表的问题及其思考" class="headerlink" title="顺序表的问题及其思考"></a>顺序表的问题及其思考</h2><blockquote>
 <ol>
 <li>中间&#x2F;头部的插入删除，时间复杂度为O(N)</li>

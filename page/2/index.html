@@ -250,7 +250,8 @@
         
           <div class="truncate-text">
             
-              C语言基础
+              [TOC]
+C语言基础
 在整型运算中，除数不可以为0，而在浮点型运算中，除数可以为0，得到的结果是无穷infinite.
 In short, that’s the way it’s specified in the IEEE-754 standard, which is what Java’s or C++’s&#x2F;C’s Floating-Point Operations are based on.(Except for python.)
 Division by zero: an operation on finite operands gives an exact infinite result, e.g., 1&#x2F;0 or log(0). By default, returns ±infinity.
@@ -267,10 +268,7 @@ C++12345678using namespace std;/*这个其实是帮你定义了一些东西但�
 
 
 
-算术运算符
-高
-
-...
+算术运...
             
           </div>
         
@@ -342,12 +340,13 @@ C++12345678using namespace std;/*这个其实是帮你定义了一些东西但�
         
           <div class="truncate-text">
             
-              
-前言：我们遇到一个问题，如果要实现多次核心代码一样的代码段，我们发现会重复输入几次，并且其代码维护量也会代数增长，而且会发现每次重复在浪费时间。我们在想我们能不能有一个东西能来帮助我们解决这个问题，这也便是我们这篇章要讲的重点之一——函数
-
-我们认为，一个代码要具有简洁性，并且可维护性高，显而易见100段行功能相似的代码段，如果出错要逐行更改困难；    我们注意到，实际上#include&lt;stdio.h&gt;和#include&lt;iostream&gt;本质上就是封装了许许多多代码段综合而成的，编译后产生的是许多行stdio.h和iostream所包含的代码；    而我们将这种使用一个“压缩包”把许多段代码段封装的“压缩包”称为函数，而#include&lt;&gt;是函数的一种，我们称之为库函数。@TOC
+              前言：我们遇到一个问题，如果要实现多次核心代码一样的代码段，我们发现会重复输入几次，并且其代码维护量也会代数增长，而且会发现每次重复在浪费时间。我们在想我们能不能有一个东西能来帮助我们解决这个问题，这也便是我们这篇章要讲的重点之一——函数。
+我们认为，一个代码要具有简洁性，并且可维护性高，显而易见100段行功能相似的代码段，如果出错要逐行更改困难；
+我们注意到，实际上#include&lt;stdio.h&gt;和#include&lt;iostream&gt;本质上就是封装了许许多多代码段综合而成的，编译后产生的是许多行stdio.h和iostream所包含的代码；
+而我们将这种使用一个“压缩包”把许多段代码段封装的“压缩包”称为函数，而#include&lt;&gt;是函数的一种，我们称之为库函数。
+[TOC]
 e.g.1向数组$a[5]$输入五个数字，并乘以k倍，打印之前与之后的数组。分析：可以看到打印数组$a[5]$前后都是要操作的，这是重复的，我们如果采用两次
-123for(int i=0;i&lt;5;i++)&#123;	printf(&quot;%d&q...
+123for(int i=0;i&lt;5;i++)&#123;	printf(&quot;%d&quot;,...
             
           </div>
         

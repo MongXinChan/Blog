@@ -29,7 +29,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f76d00ea72fe6348c3399c4f3a4e3f0f.png">
 <meta property="article:published_time" content="2024-09-13T15:18:17.871Z">
-<meta property="article:modified_time" content="2024-10-15T02:26:38.267Z">
+<meta property="article:modified_time" content="2024-10-24T09:31:18.182Z">
 <meta property="article:author" content="MongXin">
 <meta property="article:tag" content="运行逻辑">
 <meta property="article:tag" content="C&#x2F;Cpp">
@@ -261,7 +261,7 @@
 <p>——Thinking in C++</p>
 </blockquote>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>由于我们对<code>Cpp</code>的框架还不够了解，在此我这一篇章进行对<code>Cpp</code>语法的拆分（没错，这个<code>Cpp</code>的坑也算是填起来了），<code>Cpp</code>对于学过<code>C</code>的人来说好像似曾相识，两种差别并不是很多，但是为何<code>Cpp</code>有了如此高效的效率？<code>Cpp</code>对<code>C</code>的特征进行了一些修改，<code>Cpp</code>更为复杂的特性将会在后面中介绍。</p>
-<p>@<a href="%E7%9B%AE%E5%BD%95">TOC</a></p>
+<p>[TOC]</p>
 <h2 id="创建函数"><a href="#创建函数" class="headerlink" title="创建函数"></a>创建函数</h2><p><code>标准C</code>和<code>Cpp</code>有一个特征叫做函数原型(function prototyping ).用函数原型，在声明和定义一个函数时，必须使用变量类型描述，也称为“原型”。调用函数时，编译器使用原形确保正确传递变量并且正确地处理返回值。</p>
 <p><code>Cpp</code>中函数声明的形式需要正确的原形。在函数原形中，参数表包含了应当传给函数类型的参数和表示符。变量的顺序和数据类型必须在声明、定义和函数调用中相匹配。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">translate</span><span class="params">(<span class="type">float</span> x,<span class="type">float</span> y,<span class="type">float</span> z)</span></span>;</span><br></pre></td></tr></table></figure>
