@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="true" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>MongXin&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="在C中的CPP——String字符串 scanf遇上空格结束，用gets();while(gets(str));char *str&#x3D;”abcdef”;–&gt;是常量char str[]&#x3D;”abcdef”;–&gt;是初始化  字符字符类型是基本数据类型，用char表示，字符的大小由其ASCII码的大小决定。 字符数组存放自负的数组称之为字符数组。用字符串常量赋值时，系统会">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongXin&#39;s Blog">
+<meta property="og:url" content="http://example.com/2024/10/29/%E5%9C%A8C%E4%B8%AD%E7%9A%84CPP%E2%80%94%E2%80%94String/index.html">
+<meta property="og:site_name" content="MongXin&#39;s Blog">
+<meta property="og:description" content="在C中的CPP——String字符串 scanf遇上空格结束，用gets();while(gets(str));char *str&#x3D;”abcdef”;–&gt;是常量char str[]&#x3D;”abcdef”;–&gt;是初始化  字符字符类型是基本数据类型，用char表示，字符的大小由其ASCII码的大小决定。 字符数组存放自负的数组称之为字符数组。用字符串常量赋值时，系统会">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-28T16:06:18.697Z">
+<meta property="article:modified_time" content="2024-10-28T16:06:18.697Z">
+<meta property="article:author" content="MongXin">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="MongXin's Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+    <link rel="stylesheet" href="blog\node_modules\Typro-theme-YuanShan-master\assets\yuan-shan.css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+
+<body>
+  
+  
+    
+<div id="banner" class="">
+  <img src="/images/Banner.jpg" itemprop="image">
+  <div id="banner-dim"></div>
+</div>
+ 
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>MongXin's Blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">首页</a>
+    
+      <a class="main-nav-link" href="/archives">归档</a>
+    
+      <a class="main-nav-link" href="/music">音乐</a>
+    
+      <a class="main-nav-link" href="/movie">电影</a>
+    
+      <a class="main-nav-link" href="/notes">随笔</a>
+    
+      <a class="main-nav-link" href="/linking">友链</a>
+    
+      <a class="main-nav-link" href="/about">关于</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">首页</a>
+    
+      <a class="nav-dropdown-link" href="/archives">归档</a>
+    
+      <a class="nav-dropdown-link" href="/music">音乐</a>
+    
+      <a class="nav-dropdown-link" href="/movie">电影</a>
+    
+      <a class="nav-dropdown-link" href="/notes">随笔</a>
+    
+      <a class="nav-dropdown-link" href="/linking">友链</a>
+    
+      <a class="nav-dropdown-link" href="/about">关于</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/%5Bobject%20Object%5D></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">Mongxin Chan </div>
+      <div class="dot"></div>
+      <div class="subtitle">这里就是罗德岛，要跳就在这里跳 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://steamcommunity.com/id/MongXin_Chan" title="Steam"><i class="fa-brands fa-steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com/MongXinChan" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/%E8%AF%AD%E6%B3%95/">
+                语法
+                <div class="category-count">5</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+                数据结构
+                <div class="category-count">7</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%AB%9E%E8%B5%9B/">
+                竞赛
+                <div class="category-count">1</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">标签</h3>
+      <ul class="widget-tag-list" itemprop="keywords"><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/C-Cpp/" rel="tag">C&#x2F;Cpp</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E4%BF%A1%E6%81%AF%E5%AD%A6/" rel="tag">信息学</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AB%9E%E8%B5%9B/" rel="tag">竞赛</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="widget-tag-list-item"><a class="widget-tag-list-link" href="/tags/%E8%BF%90%E8%A1%8C%E9%80%BB%E8%BE%91/" rel="tag">运行逻辑</a></li></ul>
+    </div>
+  </div>
+
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-在C中的CPP——String" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        无标题
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-10-28T16:06:18.697Z" itemprop="datePublished">2024-10-29</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+    未分类 
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            9.6k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <hr>
+<hr>
+<h1 id="在C中的CPP——String"><a href="#在C中的CPP——String" class="headerlink" title="在C中的CPP——String"></a>在C中的CPP——String</h1><h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><blockquote>
+<p>scanf遇上空格结束，用gets();<br>while(gets(str));<br>char *str&#x3D;”abcdef”;–&gt;是常量<br>char str[]&#x3D;”abcdef”;–&gt;是初始化</p>
+</blockquote>
+<h3 id="字符"><a href="#字符" class="headerlink" title="字符"></a>字符</h3><p>字符类型是基本数据类型，用char表示，字符的大小由其ASCII码的大小决定。</p>
+<h3 id="字符数组"><a href="#字符数组" class="headerlink" title="字符数组"></a>字符数组</h3><p>存放自负的数组称之为字符数组。用字符串常量赋值时，系统会在字符串末尾自动添加结束标识符\0，而对单个字符赋值时，则不会自动添加结束标识符\0，有可能除了赋值元素外，其他元素也由预期外的初始值。</p>
+<h3 id="字符串处理函数"><a href="#字符串处理函数" class="headerlink" title="字符串处理函数"></a>字符串处理函数</h3><table>
+<thead>
+<tr>
+<th align="left">函数</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">void *memchr(const void *str, int c, size_t n)</td>
+<td align="left">在参数 <em>str</em> 所指向的字符串的前 n 个字节中搜索第一次出现字符 c（一个无符号字符）的位置。</td>
+</tr>
+<tr>
+<td align="left">int memcmp(const void *str1, const void *str2, size_t n)</td>
+<td align="left">把 <em>str1</em> 和 <em>str2</em> 的前 n 个字节进行比较。</td>
+</tr>
+<tr>
+<td align="left">void *memcpy(void *dest, const void *src, size_t n)</td>
+<td align="left">从 src 复制 n 个字符到 <em>dest</em>。</td>
+</tr>
+<tr>
+<td align="left">void *memmove(void *dest, const void *src, size_t n)</td>
+<td align="left">另一个用于从 <em>src</em> 复制 n 个字符到 <em>dest</em> 的函数。</td>
+</tr>
+<tr>
+<td align="left">void *memset(void *str, int c, size_t n)</td>
+<td align="left">将指定的值 c 复制到 str 所指向的内存区域的前 n 个字节中。</td>
+</tr>
+<tr>
+<td align="left">char *strcat(char *dest, const char *src)</td>
+<td align="left">把 <em>src</em> 所指向的字符串追加到 <em>dest</em> 所指向的字符串的结尾。</td>
+</tr>
+<tr>
+<td align="left">char *strncat(char *dest, const char *src, size_t n)</td>
+<td align="left">把 <em>src</em> 所指向的字符串追加到 <em>dest</em> 所指向的字符串的结尾，直到 n 字符长度为止。</td>
+</tr>
+<tr>
+<td align="left">char *strchr(const char *str, int c)</td>
+<td align="left">在参数 <em>str</em> 所指向的字符串中搜索第一次出现字符 c（一个无符号字符）的位置。</td>
+</tr>
+<tr>
+<td align="left">int strcmp(const char *str1, const char *str2)</td>
+<td align="left">把 <em>str1</em> 所指向的字符串和 <em>str2</em> 所指向的字符串进行比较。</td>
+</tr>
+<tr>
+<td align="left">int strncmp(const char *str1, const char *str2, size_t n)</td>
+<td align="left">把 <em>str1</em> 和 <em>str2</em> 进行比较，最多比较前 n 个字节。</td>
+</tr>
+<tr>
+<td align="left">int strcoll(const char *str1, const char *str2)</td>
+<td align="left">把 <em>str1</em> 和 <em>str2</em> 进行比较，结果取决于 LC_COLLATE 的位置设置。</td>
+</tr>
+<tr>
+<td align="left">char *strcpy(char *dest, const char *src)</td>
+<td align="left">把 <em>src</em> 所指向的字符串复制到 <em>dest</em>。</td>
+</tr>
+<tr>
+<td align="left">char *strncpy(char *dest, const char *src, size_t n)</td>
+<td align="left">把 <em>src</em> 所指向的字符串复制到 <em>dest</em>，最多复制 n 个字符。</td>
+</tr>
+<tr>
+<td align="left">size_t strcspn(const char *str1, const char *str2)</td>
+<td align="left">检索字符串 str1 开头连续有几个字符都不含字符串 str2 中的字符。</td>
+</tr>
+<tr>
+<td align="left">char *strerror(int errnum)</td>
+<td align="left">从内部数组中搜索错误号 errnum，并返回一个指向错误消息字符串的指针。</td>
+</tr>
+<tr>
+<td align="left">size_t strlen(const char *str)</td>
+<td align="left">计算字符串 str 的长度，直到空结束字符，但不包括空结束字符。</td>
+</tr>
+<tr>
+<td align="left">char *strpbrk(const char *str1, const char *str2)</td>
+<td align="left">检索字符串 <em>str1</em> 中第一个匹配字符串 <em>str2</em> 中字符的字符，不包含空结束字符。也就是说，依次检验字符串 str1 中的字符，当被检验字符在字符串 str2 中也包含时，则停止检验，并返回该字符位置。</td>
+</tr>
+<tr>
+<td align="left">char *strrchr(const char *str, int c)</td>
+<td align="left">在参数 <em>str</em> 所指向的字符串中搜索最后一次出现字符 c（一个无符号字符）的位置。</td>
+</tr>
+<tr>
+<td align="left">size_t strspn(const char *str1, const char *str2)</td>
+<td align="left">检索字符串 <em>str1</em> 中第一个不在字符串 <em>str2</em> 中出现的字符下标。</td>
+</tr>
+<tr>
+<td align="left">char *strstr(const char *haystack, const char *needle)</td>
+<td align="left">在字符串 <em>haystack</em> 中查找第一次出现字符串 <em>needle</em>（不包含空结束字符）的位置。</td>
+</tr>
+<tr>
+<td align="left">char *strtok(char *str, const char *delim)</td>
+<td align="left">分解字符串 <em>str</em> 为一组字符串，<em>delim</em> 为分隔符。</td>
+</tr>
+<tr>
+<td align="left">size_t strxfrm(char *dest, const char *src, size_t n)</td>
+<td align="left">根据程序当前的区域选项中的 LC_COLLATE 来转换字符串 <strong>src</strong> 的前 <strong>n</strong> 个字符，并把它们放置在字符串 <strong>dest</strong> 中。</td>
+</tr>
+</tbody></table>
+<h3 id="string类"><a href="#string类" class="headerlink" title="string类"></a>string类</h3><ol>
+<li><p>构造函数</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">s1</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">string <span class="title">s2</span><span class="params">(<span class="string">&quot;hello lw&quot;</span>)</span></span>;</span><br><span class="line"><span class="function">string <span class="title">s3</span><span class="params">(<span class="number">4</span>,<span class="string">&#x27;o&#x27;</span>)</span></span>;</span><br><span class="line"><span class="function">string <span class="title">s4</span><span class="params">(<span class="string">&quot;012345&quot;</span>,<span class="number">2</span>,<span class="number">3</span>)</span><span class="comment">//用012345字符串中的第二个元素(也就是下标的数字)开始的三个元素给s4赋初值，s4=&quot;234&quot;</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>赋值<br>可以使用<code>char*</code>类型给string对象赋值，string类重载了运算符&#x3D;，可以直接用等号&#x3D;进行赋值，或者用成员函数assign()对string对象赋值，assign成员函数返回对象自身的引用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">string str,s1;</span><br><span class="line">str=<span class="string">&quot;hello&quot;</span>;</span><br><span class="line">s=<span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">string s2,s3,s4,s5,s6;</span><br><span class="line">s<span class="number">2.</span><span class="built_in">assign</span>(<span class="string">&quot;hello lw&quot;</span>);</span><br><span class="line">s<span class="number">3.</span><span class="built_in">assign</span>(str);				<span class="comment">//s3=str</span></span><br><span class="line">s<span class="number">4.</span><span class="built_in">assign</span>(str,<span class="number">2</span>,<span class="number">4</span>);			<span class="comment">//s4=str[2~2+4]--&gt;&quot;llol&quot;</span></span><br><span class="line">s<span class="number">5.</span><span class="built_in">assign</span>(<span class="number">4</span>,<span class="string">&#x27;o&#x27;</span>);			<span class="comment">//s5=&quot;oooo&quot;</span></span><br><span class="line">s<span class="number">6.</span><span class="built_in">assign</span>(<span class="string">&quot;012345&quot;</span>,<span class="number">2</span>,<span class="number">4</span>);	<span class="comment">//012345的子串给s6赋值,从第二个元素开始，连续4个元素,s6=&quot;2345&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>string类的输入&#x2F;输出<br>string类的重载运算符&gt;&gt;以及&lt;&lt;分别用于输入和输出，执行输入读取操作的时候，string对象会忽略开头的空格、换行符、制表符等空白，从第一个真正的字符开始读入，以空白字符为结束标志，一次只能读单个词。<br>getline函数可以读取一行，只以换行符为一行输入的结束标志，且不会忽略开头的空白符号。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">getline</span>(cin,string对象);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span>	<span class="comment">//包含该头文件后可以使用string str、str.compare()以及比较运算符</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string s1,s2;</span><br><span class="line">    </span><br><span class="line">    std::<span class="built_in">getline</span>(cin,s1);</span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    std::cin&gt;&gt;s2;</span><br><span class="line">    std::cout&lt;&lt;s2&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>string对象常用特性</p>
+<table>
+<thead>
+<tr>
+<th align="center">成员函数名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">int capacity()</td>
+<td align="center">返回string对象当前容量，在不增加内存的情况下可以存放的元素个数</td>
+</tr>
+<tr>
+<td align="center">int max_size()</td>
+<td align="center">返回string对象中可以存放的最大字符串长度</td>
+</tr>
+<tr>
+<td align="center">int size()</td>
+<td align="center">返回当前字符串的大小，使用方法和length()相同</td>
+</tr>
+<tr>
+<td align="center">int length()</td>
+<td align="center">返回当前字符串的长度，使用方法和size()相同</td>
+</tr>
+<tr>
+<td align="center">bool empty</td>
+<td align="center">判断当前字符串是否为空，是返回true，反之为false</td>
+</tr>
+<tr>
+<td align="center">void resize(int len,char)</td>
+<td align="center">把字符串当前大小重置为len，并用字符c填充不足的部分</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>string的比较<br>string类提供了compare()函数,用于比较两个字符串的大小，函数返回值为负值则表示当前字符小，返回值为0则表示两个字符串相等，返回值为正值则表示当前字符串大。同时重载比较运算符&#x3D;&#x3D;、！&#x3D;、&lt;、&lt;&#x3D;、&gt;、&gt;&#x3D;用于两个字符串的比较，举例说明如下：</p>
+  <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  string s1=<span class="string">&quot;abcdefg&quot;</span>,s2=<span class="string">&quot;abcdef&quot;</span>;</span><br><span class="line">  <span class="keyword">if</span>(s1==s2)std::cout&lt;&lt;<span class="string">&quot;相等&quot;</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(s1&gt;s2)std::cout&lt;&lt;<span class="string">&quot;s1&gt;s2&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(s1&lt;s2)std::cout&lt;&lt;<span class="string">&quot;s1&lt;s2&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">  </span><br><span class="line">  <span class="type">int</span> cmp=s<span class="number">1.</span><span class="built_in">compare</span>(s2);</span><br><span class="line">  <span class="keyword">if</span>(cmp==<span class="number">0</span>)std::cout&lt;&lt;<span class="string">&quot;相等&quot;</span>;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(cmp&gt;<span class="number">0</span>)std::cout&lt;&lt;<span class="string">&quot;s1&gt;s2&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span>(cmp&lt;<span class="number">0</span>)std::cout&lt;&lt;<span class="string">&quot;s1&lt;s2&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">  </span><br><span class="line">  cmp=s<span class="number">1.</span><span class="built_in">compare</span>(<span class="number">1</span>,<span class="number">2</span>,s2,<span class="number">0</span>,<span class="number">3</span>);<span class="comment">//比较s1从1开始的2个字符组成的字符串与s2从0开始的字符组成的字符串的大小</span></span><br><span class="line">  cmp=s<span class="number">1.</span><span class="built_in">compare</span>(<span class="number">0</span>,<span class="number">6</span>,s2);<span class="comment">//比较s1从0开始的6个字符组成的字符串与s2的大小</span></span><br><span class="line">  cmp=s<span class="number">1.</span><span class="built_in">compare</span>(<span class="string">&quot;abcdefg&quot;</span>);<span class="comment">//比较s1与字符串abcdefg的大小</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>string的链接<br>string类提供了append函数，用于在当前字符串后面链接字符串，返回值为连接后对象自身的引用。同时重载了运算符+、+&#x3D;用于两个字符串的链接</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string s1=<span class="string">&quot;hello&quot;</span>;</span><br><span class="line">    s1+=<span class="string">&quot; lw!&quot;</span>;</span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    string s2=<span class="string">&quot;ABCD&quot;</span>;</span><br><span class="line">    s<span class="number">1.</span><span class="built_in">append</span>(s2);				<span class="comment">//在s1的末尾链接s2字符串</span></span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;	<span class="comment">//输出hello lw！ ABCD</span></span><br><span class="line">    </span><br><span class="line">    s<span class="number">1.</span><span class="built_in">append</span>(s2,<span class="number">0</span>,<span class="number">3</span>);			<span class="comment">//在s1的末尾链接s2中从0开始的连续3个字符的字符串</span></span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;	<span class="comment">//输出hello lw! ABCDABC</span></span><br><span class="line">    </span><br><span class="line">    s<span class="number">1.</span><span class="built_in">append</span>(<span class="number">3</span>,<span class="string">&#x27;K&#x27;</span>);			<span class="comment">//在s1的末尾链接3个字符，内容均为K</span></span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;	<span class="comment">//输出hello lw! ABCDABCKKK</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>交换string对象的内容</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">string s1=<span class="string">&quot;abc&quot;</span>,s2=<span class="string">&quot;0123456&quot;</span>;</span><br><span class="line">s<span class="number">1.</span><span class="built_in">swap</span>(s2);</span><br><span class="line">std::cout&lt;&lt;s1&lt;&lt;<span class="string">&quot;&quot;</span>&lt;&lt;s2&lt;&lt;std::endl;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>string对象的子串</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">string <span class="title">substr</span><span class="params">(<span class="type">int</span> pos,<span class="type">int</span> n)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>substr</code>成员函数用于求string对象的子串，函数返回字符串从pos开始的连续n个字符组成的字符串</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string s1=<span class="string">&quot;0123456&quot;</span>;</span><br><span class="line">    string s2=s<span class="number">1.</span><span class="built_in">substr</span>(<span class="number">1</span>,<span class="number">3</span>);<span class="comment">//123</span></span><br><span class="line">    std::cout&lt;&lt;s2&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    s2=s<span class="number">1.</span><span class="built_in">strsub</span>(<span class="number">3</span>);	<span class="comment">//3456(从第三个元素开始直到s1字符结束的子串)</span></span><br><span class="line">	std::cout&lt;&lt;s2&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>string类的查找函数</p>
+<p>string 类可以查找字符串中的子中和字符，返回值是子申或字符在字符市中的位置，果不存在，则返回<code>-1</code>，成员函数如下。<br>• find：从前往后查找子申或字符的位置。<br>• rfind：从后往前查找子中或者字符的位置<br>• find_first_of：从前往后查找另一个字符串中任意字符在当前字符串中出现的负置<br>•find_last_of：从后往前查找另一个字符串中任意字符在当前字符串中出现的位置<br>•find_first_not_of：从前往后查找另一个字符串中没有包含的字符在当前字符串中的位置<br>•find_last_not_of：从后往前查找另一个字符串中没有包含的字符在当前字符串中的位置</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string s1 = <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> pos  s<span class="number">1.</span> <span class="built_in">find</span>(<span class="string">&quot;l”); //从前往后查找l出现的位置为2</span></span><br><span class="line"><span class="string">                      </span></span><br><span class="line"><span class="string">    if(pos!=-1)</span></span><br><span class="line"><span class="string">    	std::cout &lt;&lt; pos &lt;&lt;&quot;</span> <span class="string">&quot;&lt;&lt; sl.subst.r(poa)&lt;&lt;std::endl;</span></span><br><span class="line"><span class="string">    //输出从字符串pos位置开始的子串</span></span><br><span class="line"><span class="string">    //输出结果：2 llo</span></span><br><span class="line"><span class="string">    pos = s1.find(&quot;</span>l<span class="string">&quot;); //从后往营查找l出现的位置为3</span></span><br><span class="line"><span class="string">                      </span></span><br><span class="line"><span class="string">    if(pos!= - 1)</span></span><br><span class="line"><span class="string">    	std::cout &lt;&lt; pos &lt;&lt; &quot;</span> <span class="string">&quot;&lt;&lt; sl.subatr(pos)&lt;&lt;std::endl;//输出结果；3 1o</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	pos=s1.find(&quot;</span>ell<span class="string">&quot;，2); //从第2个元索开始寻找ell子串</span></span><br><span class="line"><span class="string">    std::cout &lt;&lt; pos &lt;&lt; std::endl; //不存在该子串，输出-1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    pos =s1.find_first_of(&quot;</span>world<span class="string">&quot;); //从前往后查找第一次出&quot;</span>w<span class="string">&quot;,&quot;</span>o<span class="string">&quot;,&quot;</span>r<span class="string">&quot;,&quot;</span>l<span class="string">&quot;或者&quot;</span>d<span class="string">&quot;的位置</span></span><br><span class="line"><span class="string">    if(pos!=-1)</span></span><br><span class="line"><span class="string">    	std::cout &lt;&lt; pos &lt;&lt; &quot;</span> <span class="string">&quot; &lt;&lt; sl.substr(pos) &lt;&lt;std::endl;//输出结果：2 llo</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">	pos = s1.find_last_of(&quot;</span>world<span class="string">&quot;); //从后往前查找第一次出&quot;</span>w<span class="string">&quot;,&quot;</span>o<span class="string">&quot;,&quot;</span>r<span class="string">&quot;,&quot;</span>l<span class="string">&quot;或者&quot;</span>d<span class="string">&quot;的位置</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	if(pos(=-1)</span></span><br><span class="line"><span class="string">    std::cout &lt;&lt; pos &lt;&lt; &quot;</span> <span class="string">&quot; &lt;&lt; s1.substr(pos) &lt;&lt;std::endl; //输出结果：4 o</span></span><br><span class="line"><span class="string">       </span></span><br><span class="line"><span class="string">    pos = s1.find_first_not_of(&quot;</span>world<span class="string">&quot;); //从前往后查找第一次出现的不是“w”“o&quot;</span>“r”“<span class="number">1</span>”或者“d”字符的位置</span><br><span class="line">       </span><br><span class="line">    <span class="keyword">if</span>(pos= <span class="number">-1</span>)</span><br><span class="line">    std::cout &lt;&lt; pos &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; sl.<span class="built_in">substr</span>(pos) &lt;&lt; std::endl;<span class="comment">//输出结果：0 Hello</span></span><br><span class="line">    </span><br><span class="line">	pos = al.find_last_ <span class="built_in">not_of</span>(<span class="string">&quot;worid&quot;</span>); <span class="comment">//从后往的查找第一次出现的不是“w“o&quot;“r&quot;“1”或者“d”字符的位置</span></span><br><span class="line">    <span class="keyword">if</span>(poat= <span class="number">-1</span>)</span><br><span class="line">    	std::cout &lt;&lt; pos &lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;s<span class="number">1.</span><span class="built_in">substr</span>(pos)&lt;&lt;std::endl; <span class="comment">//输出结果：1 ello</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>；</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>string类替换、插入、删除成员函数<br><code>replace</code>成员函数用于对<code>string</code>对象子串进行替换，返回值为替换子串后对象的引用。insert成员函数用于在string对象中插入另一个字符串，返回值为插人后的对象自身的引用。erase成员函数用于删除string对象中的子串，返回值为删除子重后对象自身的引用。举例说明如下，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string s1=<span class="string">&quot;Hello!&quot;</span>;</span><br><span class="line">   	s<span class="number">1.</span><span class="built_in">insert</span>(<span class="number">5</span>,<span class="string">&quot; lw&quot;</span>);			<span class="comment">//在s1第5位置插入字符串lw</span></span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    strnig s2=<span class="string">&quot;ABC &quot;</span>;</span><br><span class="line">    s<span class="number">1.</span><span class="built_in">insert</span>(<span class="number">0</span>,s2);			<span class="comment">//在s1第0位置插入字符串s2</span></span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;	<span class="comment">//输出ABC Hello lw</span></span><br><span class="line">    </span><br><span class="line">    s<span class="number">1.</span><span class="built_in">earse</span>(<span class="number">4</span>,<span class="number">6</span>);				<span class="comment">//删除s1串第4位置后连续1个字符</span></span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;	<span class="comment">//输出ABC lw</span></span><br><span class="line">    </span><br><span class="line">    s<span class="number">1.</span><span class="built_in">erase</span>(<span class="number">3</span>);				<span class="comment">//删除s1串第3位置后所有字符</span></span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    s<span class="number">1.</span><span class="built_in">replace</span>(<span class="number">0</span>,<span class="number">3</span>,<span class="string">&quot;Hello lw&quot;</span>,<span class="number">0</span>,<span class="number">8</span>);<span class="comment">//将s1中从0开始的1个字符替换为&quot;Hello lw&quot;中从0开始的8个字符</span></span><br><span class="line">    </span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    s<span class="number">1.</span><span class="built_in">replace</span>(<span class="number">5</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="string">&#x27;A&#x27;</span>);		<span class="comment">//将s1中从5开始的2个字符替换为A</span></span><br><span class="line">    std::cout&lt;&lt;s1&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="【错位纠正】"><a href="#【错位纠正】" class="headerlink" title="【错位纠正】"></a>【错位纠正】</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">char</span> s[]=<span class="string">&quot;`1234567890-=QWERTYUIOP[]\\ASDFGHJKL;&#x27;ZXCVBNM,./&quot;</span>;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="type">int</span> i, c;</span><br><span class="line">     <span class="keyword">while</span>((c = <span class="built_in">getchar</span>()) != EOF) &#123;</span><br><span class="line">        <span class="keyword">for</span> (i=<span class="number">1</span>; s[i] &amp;&amp; s[i]!=c; i++); <span class="comment">//找错位之后的字符在常量表中的位置</span></span><br><span class="line">        <span class="keyword">if</span> (s[i]) <span class="built_in">putchar</span>(s[i<span class="number">-1</span>]); <span class="comment">//如果找到，则输出它的前一个字符</span></span><br><span class="line"> 	<span class="keyword">else</span> <span class="built_in">putchar</span>(c);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【忽略大小写字符串比较】</p>
+<blockquote>
+<p>【题目描述】</p>
+<p>​	用strcmp函数可以比较两个字符串的大小,比较方法为：对两个字符串从前往后逐个字符串相比较,直到出现不同的字符或遇到’\0’为止。如果全部字符都相同，则认为相同；如果某个字符串先遇到\0，而另一个字符串还未遇到\0，则前者小于后者。</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> N=<span class="number">105</span>;</span><br><span class="line"><span class="type">char</span> s1[N],s2[N];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">gets</span>(s1);<span class="built_in">gets</span>(s2);</span><br><span class="line">    <span class="built_in">strlwr</span>(s1),<span class="built_in">strlwr</span>(s2);</span><br><span class="line">    <span class="type">int</span> cmp=<span class="built_in">strcmp</span>(s1,s2);</span><br><span class="line">    <span class="keyword">if</span>(cmp&lt;<span class="number">0</span>)std::cout&lt;&lt;<span class="string">&quot;&lt;&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">    <span class="keyword">if</span>(cmp==<span class="number">0</span>)std::cout&lt;&lt;<span class="string">&quot;=&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">    <span class="keyword">if</span>(cmp&gt;<span class="number">0</span>)std::cout&lt;&lt;<span class="string">&quot;&gt;&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>【NOIP 2008 ISBN号码】</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="type">char</span> str[<span class="number">14</span>],mod[<span class="number">12</span>]=<span class="string">&quot;0123456789X&quot;</span>;</span><br><span class="line">	<span class="built_in">gets</span>(str);</span><br><span class="line">	<span class="type">int</span> i,j=<span class="number">1</span>,t=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">12</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(str[i]==<span class="string">&#x27;-&#x27;</span>)<span class="keyword">continue</span>;</span><br><span class="line">		t+=(str[i]-<span class="string">&#x27;0&#x27;</span>)*j++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(mod[t%<span class="number">11</span>]==str[<span class="number">12</span>])<span class="built_in">printf</span>(<span class="string">&quot;Right&quot;</span>);</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		str[<span class="number">12</span>]=mod[t%<span class="number">11</span>];</span><br><span class="line">		<span class="built_in">puts</span>(str);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">char</span> s[<span class="number">20</span>];</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    std::cin&gt;&gt;s;</span><br><span class="line">    <span class="type">int</span> n=<span class="built_in">strlen</span>(s);</span><br><span class="line">    <span class="type">int</span> sum=<span class="number">0</span>,mul=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(s[i]&gt;=<span class="string">&#x27;0&#x27;</span>&amp;&amp;s[i]&lt;=<span class="string">&#x27;9&#x27;</span>)sum+=(s[i]-<span class="string">&#x27;0&#x27;</span>)*(mul++);</span><br><span class="line">        sum%=<span class="number">11</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sum==<span class="number">10</span>)&#123;<span class="comment">//最后一个数字--&gt;判定</span></span><br><span class="line">        <span class="keyword">if</span>(s[n<span class="number">-1</span>]==<span class="string">&#x27;X&#x27;</span>)&#123;</span><br><span class="line">		std::cout&lt;&lt;<span class="string">&quot;Right&quot;</span>&lt;&lt;std::endl;<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            s[n<span class="number">-1</span>]=<span class="string">&#x27;X&#x27;</span>;</span><br><span class="line">            std::cout&lt;&lt;s&lt;&lt;std::endl;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(s[n<span class="number">-1</span>]-<span class="string">&#x27;0&#x27;</span>==sum)std::cout&lt;&lt;<span class="string">&quot;Right&quot;</span>&lt;&lt;std::endl;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        s[n<span class="number">-1</span>]=<span class="string">&#x27;0&#x27;</span>+sum;</span><br><span class="line">        std::cout&lt;&lt;s&lt;&lt;std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left "
+    
+      href="/2024/10/31/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%EF%BC%9ASTL%E4%B8%AD%E7%9A%84Stack%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%A1%88%E4%BE%8B/"
+      title=""
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+      
+        (No Title)
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/10/27/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E7%AC%AC%E4%B8%83%E8%AE%B2%EF%BC%9A%E9%98%9F%E5%88%97/"
+      title="数据结构与算法——第七讲："
+     >
+
+    <p class="title-text">
+      
+        数据结构与算法——第七讲：
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 Mongxin Chan<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+
+</footer>
+
+
+  <script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({startOnLoad: true});
+  </script>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
